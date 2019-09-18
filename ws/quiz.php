@@ -50,17 +50,19 @@ class quiz_wstemplate_external extends external_api {
                 'course_id' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
                 'timeopen' => new external_value(PARAM_TEXT, 'wiki description,', VALUE_DEFAULT, 'Hello world, '),
                 'timeclose' => new external_value(PARAM_TEXT, 'wiki description,', VALUE_DEFAULT, 'Hello world, '),
+
+                'group_id' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
             )
         );
     }
 
-    public static function get_quizzes( $name = '',$description='', $course_id=1, $timeopen = '',$timeclose='') {
+    public static function get_quizzes( $name = '',$description='', $course_id=1, $timeopen = '',$timeclose='',$group_id=1) {
 
         global $COURSE, $DB;
 
         $params = self::validate_parameters(self::get_quizzes_parameters(),
                 array('name' => $name, 'description' => $description, 'course_id'=>$course_id,
-                'timeopen' => $timeopen, 'timeclose' => $timeclose
+                'timeopen' => $timeopen, 'timeclose' => $timeclose, 'group_id' => $group_id
             ));
 
         $section= 6;
@@ -89,6 +91,9 @@ class quiz_wstemplate_external extends external_api {
         $quiz->module = $cm->module;
 
         $quiz->name = $course_name;
+        $quiz->preferredbehaviour = 'deferredfeedback';
+
+        
         $quiz->intro = $description;
         $quiz->timeopen = self::getStringDate( $timeopen );
         $quiz->timeclose = self::getStringDate( $timeclose );
@@ -111,6 +116,12 @@ class quiz_wstemplate_external extends external_api {
         "view.php?id=$cm->coursemodule",
         "$cm->instance", $cm->id);
 
+        $restriction = \core_availability\tree::get_root_json(
+            [\availability_group\condition::get_json($group_id)]);
+        $DB->set_field('course_modules', 'availability',
+        json_encode($restriction), ['id' => $cm->id]);
+        rebuild_course_cache($course_id, true);
+        
         $warnings = array();
 
         $result = array();
@@ -124,8 +135,8 @@ class quiz_wstemplate_external extends external_api {
 
         return new external_single_structure(
             array(
-                'id' => new external_value(PARAM_INT, 'unique identifier'),
-                'hasgrade' => new external_value(PARAM_BOOL, 'unique identifier'),
+                'id' => new external_value(PARAM_INT, 'Whether the user can do the quiz or not.'),
+                'hasgrade' => new external_value(PARAM_BOOL, 'Whether the user can do the quiz or not.'),
                 
             )
         );

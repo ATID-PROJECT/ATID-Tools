@@ -56,14 +56,13 @@ class update_wiki extends external_api {
         $wiki->modulename = 'wiki';
         $wiki->id = $wiki_id;
 
-        $wiki->module = $cm->module;
-        $wiki->name = $course_name;
+        $wiki->name = $name;
         $wiki->intro = $description;
         $wiki->wikimode = $wikimode;
         $wiki->firstpagetitle = $firstpagetitle;
         $wiki->defaultformat = $defaultformat;
 
-        $DB->update_record('wiki', $quiz);
+        $DB->update_record('wiki', $wiki);
         
         $instance = $DB->get_record('wiki', array('id'=> $wiki->id), '*', MUST_EXIST);
         $cm = get_coursemodule_from_instance('wiki', $wiki->id, $instance->course);
@@ -94,7 +93,7 @@ class update_wiki extends external_api {
 
         return new external_single_structure(
             array(
-                'sucess' => new external_value(PARAM_BOOL, 'unique identifier'),
+                'sucess' => new external_value(PARAM_BOOL, 'Whether the user can do the quiz or not.'),
                 
             )
         );

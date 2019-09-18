@@ -34,17 +34,20 @@ class local_wstemplate_external extends external_api {
             array('name' => new external_value(PARAM_TEXT, 'chat name,', VALUE_DEFAULT, 'Hello world, '),
                   'description' => new external_value(PARAM_TEXT, 'chat description,', VALUE_DEFAULT, 'Hello world, '),
                   'course_id' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
+                  'group_id' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
             )
         );
     }
 
 
-    public static function handle_chat($name = '',$description='',$course_id=1) {
+    public static function handle_chat($name = '',$description='',$course_id=1, $group_id=1) {
 
         global $COURSE, $DB;
 
         $params = self::validate_parameters(self::handle_chat_parameters(),
-                array('name' => $name, 'description' => $description, 'course_id' => $course_id ));
+                array('name' => $name, 'description' => $description, 'course_id' => $course_id,
+                'group_id' => $group_id
+             ));
 
         $course_id = $course_id;
         $section= 6;
@@ -90,11 +93,18 @@ class local_wstemplate_external extends external_api {
         "view.php?id=$cm->coursemodule",
         "$cm->instance", $cm->id);
 
+        $restriction = \core_availability\tree::get_root_json(
+            [\availability_group\condition::get_json($group_id)]);
+        $DB->set_field('course_modules', 'availability',
+        json_encode($restriction), ['id' => $cm->id]);
+        rebuild_course_cache($course_id, true);
+
         $warnings = array();
 
         $result = array();
         $result['id'] = $instance->id;
-        $result['hasgrade'] = false;
+        $result['hasgrade'] = true;
+        $result['teste'] = $error_;
         return $result;
     
     }
@@ -108,8 +118,9 @@ class local_wstemplate_external extends external_api {
 
         return new external_single_structure(
             array(
-                'id' => new external_value(PARAM_INT, 'unique identifier'),
-                'hasgrade' => new external_value(PARAM_BOOL, 'unique identifier'),
+                'id' => new external_value(PARAM_INT, 'Whether the user can do the quiz or not.'),
+                'hasgrade' => new external_value(PARAM_BOOL, 'Whether the user can do the quiz or not.'),
+                'teste' => new external_value(PARAM_TEXT, 'Whether the user can do the quiz or not.'),
                 
             )
         );

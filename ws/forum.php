@@ -41,19 +41,22 @@ class forum_wstemplate_external extends external_api {
                   'forcesubscribe' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
                   'trackingtype' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
                  
+                  'group_id' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
                 )
         );
     }
 
     public static function handle_forum($name = '',$description='',$course_id=1,
-        $type=0, $maxbytes=0, $maxattachments=0,$displaywordcount=0,$forcesubscribe=0,$trackingtype=0) {
+        $type=0, $maxbytes=0, $maxattachments=0,$displaywordcount=0,$forcesubscribe=0,$trackingtype=0,
+        $group_id=1) {
 
         global $COURSE, $DB;
 
         $params = self::validate_parameters(self::handle_forum_parameters(),
                 array('name' => $name, 'description' => $description, 'course_id' => $course_id,
                     'type' => $type, 'maxbytes' => $maxbytes, 'maxattachments' => $maxattachments,
-                    'displaywordcount' => $displaywordcount, 'forcesubscribe' => $forcesubscribe, 'trackingtype' => $trackingtype
+                    'displaywordcount' => $displaywordcount, 'forcesubscribe' => $forcesubscribe, 
+                    'trackingtype' => $trackingtype, 'group_id' => $group_id
                     ));
 
         $section= 6;
@@ -110,6 +113,12 @@ class forum_wstemplate_external extends external_api {
         "view.php?id=$cm->coursemodule",
         "$cm->instance", $cm->id);
 
+        $restriction = \core_availability\tree::get_root_json(
+            [\availability_group\condition::get_json($group_id)]);
+        $DB->set_field('course_modules', 'availability',
+        json_encode($restriction), ['id' => $cm->id]);
+        rebuild_course_cache($course_id, true);
+
         $warnings = array();
 
         $result = array();
@@ -126,8 +135,8 @@ class forum_wstemplate_external extends external_api {
 
         return new external_single_structure(
             array(
-                'id' => new external_value(PARAM_INT, 'unique identifier'),
-                'hasgrade' => new external_value(PARAM_BOOL, 'unique identifier'),
+                'id' => new external_value(PARAM_INT, 'Whether the user can do the quiz or not.'),
+                'hasgrade' => new external_value(PARAM_BOOL, 'Whether the user can do the quiz or not.'),
             )
         );
 
