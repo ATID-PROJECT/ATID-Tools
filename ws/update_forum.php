@@ -99,7 +99,7 @@ class update_forum extends external_api {
 
         return new external_single_structure(
             array(
-                'sucess' => new external_value(PARAM_BOOL, 'unique identifier'),
+                'sucess' => new external_value(PARAM_BOOL, 'Whether the user can do the quiz or not.'),
             )
         );
 

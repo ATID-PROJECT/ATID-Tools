@@ -38,19 +38,20 @@ class wiki_wstemplate_external extends external_api {
                   'wikimode' => new external_value(PARAM_TEXT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
                   'firstpagetitle' => new external_value(PARAM_TEXT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
                   'defaultformat' => new external_value(PARAM_TEXT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
-                 
+                  'group_id' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
             )
         );
     }
 
 
-    public static function handle_wiki($name = '',$description='',$course_id=1,$wikimode="",$firstpagetitle="",$defaultformat="") {
+    public static function handle_wiki($name = '',$description='',$course_id=1,$wikimode="",$firstpagetitle="",$defaultformat="",$group_id=1) {
 
         global $COURSE, $DB;
 
         $params = self::validate_parameters(self::handle_wiki_parameters(),
                 array('name' => $name, 'description' => $description, 'course_id' => $course_id,
-                'wikimode'=>$wikimode, 'firstpagetitle'=>$firstpagetitle, 'defaultformat'=>$defaultformat
+                'wikimode'=>$wikimode, 'firstpagetitle'=>$firstpagetitle, 'defaultformat'=>$defaultformat,
+                'group_id' => $group_id
             ));
 
         $course_id = $course_id;
@@ -100,9 +101,16 @@ class wiki_wstemplate_external extends external_api {
         "view.php?id=$cm->coursemodule",
         "$cm->instance", $cm->id);
 
+        $restriction = \core_availability\tree::get_root_json(
+            [\availability_group\condition::get_json($group_id)]);
+        $DB->set_field('course_modules', 'availability',
+        json_encode($restriction), ['id' => $cm->id]);
+        rebuild_course_cache($course_id, true);
+
         $warnings = array();
 
         $result = array();
+        $result['id'] = $instance->id;
         $result['hasgrade'] = false;
         return $result;
     
@@ -117,7 +125,8 @@ class wiki_wstemplate_external extends external_api {
 
         return new external_single_structure(
             array(
-                'hasgrade' => new external_value(PARAM_BOOL, 'unique identifier'),
+                'id' => new external_value(PARAM_INT, 'Whether the user can do the quiz or not.'),
+                'hasgrade' => new external_value(PARAM_BOOL, 'Whether the user can do the quiz or not.'),
                 
             )
         );

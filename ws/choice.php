@@ -36,19 +36,20 @@ class choice_wstemplate_external extends external_api {
                   'allowupdate' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
                   'allowmultiple' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
                   'limitanswers' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
-                 
+                  'group_id' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
                 )
         );
     }
 
     public static function handle_choice($name = '',$description='',$course_id=1,
-        $allowupdate=0, $allowmultiple=0, $limitanswers=0) {
+        $allowupdate=0, $allowmultiple=0, $limitanswers=0, $group_id=1) {
 
         global $COURSE, $DB;
 
         $params = self::validate_parameters(self::handle_choice_parameters(),
                 array('name' => $name, 'description' => $description, 'course_id' => $course_id,
                     'allowupdate' => $allowupdate, 'allowmultiple' => $allowmultiple, 'limitanswers' => $limitanswers,
+                    'group_id' => $group_id
                     ));
 
         $section= 6;
@@ -104,6 +105,12 @@ class choice_wstemplate_external extends external_api {
         "view.php?id=$cm->coursemodule",
         "$cm->instance", $cm->id);
 
+        $restriction = \core_availability\tree::get_root_json(
+            [\availability_group\condition::get_json($group_id)]);
+        $DB->set_field('course_modules', 'availability',
+        json_encode($restriction), ['id' => $cm->id]);
+        rebuild_course_cache($course_id, true);
+
         $warnings = array();
 
         $result = array();
@@ -119,7 +126,7 @@ class choice_wstemplate_external extends external_api {
 
         return new external_single_structure(
             array(
-                'id' => new external_value(PARAM_INT, 'unique identifier'),
+                'id' => new external_value(PARAM_INT, 'Whether the user can do the quiz or not.'),
             )
         );
 

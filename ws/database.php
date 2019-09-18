@@ -43,6 +43,8 @@ class database_wstemplate_external extends external_api {
                   'timeavailableto' => new external_value(PARAM_TEXT, 'course id ,', VALUE_DEFAULT, 0),
                   'timeviewfrom' => new external_value(PARAM_TEXT, 'course id ,', VALUE_DEFAULT, 0),
                   'timeviewto' => new external_value(PARAM_TEXT, 'course id ,', VALUE_DEFAULT, 0),
+
+                  'group_id' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
                 )
         );
     }
@@ -56,7 +58,7 @@ class database_wstemplate_external extends external_api {
 
     public static function handle_data($name = '',$description='',$course_id=1,
         $approval=0, $manageapproved=0, $comments=0, $requiredentries=0, $requiredentriestoview = 0, $maxentries=0,
-        $timeavailablefrom=0, $timeavailableto=0, $timeviewfrom=0, $timeviewto=0) {
+        $timeavailablefrom=0, $timeavailableto=0, $timeviewfrom=0, $timeviewto=0, $group_id=1) {
 
         global $COURSE, $DB;
 
@@ -65,8 +67,8 @@ class database_wstemplate_external extends external_api {
                     'approval' => $approval, 'manageapproved' => $manageapproved, 'comments' => $comments, 'requiredentries' => $requiredentries,
                     'requiredentriestoview' => $requiredentriestoview, 'maxentries' => $maxentries,
                     'timeavailablefrom' => $timeavailablefrom, 'timeavailableto' => $timeavailableto,
-                    'timeviewto' => $timeviewto, 'timeviewto' => $timeviewto,
-                
+                    'timeviewto' => $timeviewto, 'timeviewto' => $timeviewto, 'group_id' => $group_id
+                    
                 ));
 
         $section= 6;
@@ -121,6 +123,12 @@ class database_wstemplate_external extends external_api {
         "view.php?id=$cm->coursemodule",
         "$cm->instance", $cm->id);
 
+        $restriction = \core_availability\tree::get_root_json(
+            [\availability_group\condition::get_json($group_id)]);
+        $DB->set_field('course_modules', 'availability',
+        json_encode($restriction), ['id' => $cm->id]);
+        rebuild_course_cache($course_id, true);
+
         $warnings = array();
 
         $result = array();
@@ -138,8 +146,8 @@ class database_wstemplate_external extends external_api {
 
         return new external_single_structure(
             array(
-                'id' => new external_value(PARAM_INT, 'unique identifier'),
-                'hasgrade' => new external_value(PARAM_BOOL, 'unique identifier'),
+                'id' => new external_value(PARAM_INT, 'Whether the user can do the quiz or not.'),
+                'hasgrade' => new external_value(PARAM_BOOL, 'Whether the user can do the quiz or not.'),
             )
         );
 

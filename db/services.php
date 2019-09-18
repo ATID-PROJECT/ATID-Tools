@@ -23,6 +23,49 @@
 
 // We defined the web service functions to install.
 $functions = array(
+        'get_chat' => array(
+                'classname'     => 'get_chat',
+                'methodname'    => 'handle_chat',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/get/chat.php',
+                'type'          => 'read',
+        ),
+        'get_data' => array(
+                'classname'     => 'get_data',
+                'methodname'    => 'handle_data',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/get/database.php',
+                'type'          => 'read',
+        ),
+        'get_forum' => array(
+                'classname'     => 'get_forum',
+                'methodname'    => 'handle_forum',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/get/forum.php',
+                'type'          => 'read',
+        ),
+        'get_lti' => array(
+                'classname'     => 'get_lti',
+                'methodname'    => 'handle_lti',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/get/externtool.php',
+                'type'          => 'read',
+        ),
+        'get_quiz' => array(
+                'classname'     => 'get_quiz',
+                'methodname'    => 'handle_quiz',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/get/quiz.php',
+                'type'          => 'read',
+        ),
+        'get_wiki' => array(
+                'classname'     => 'get_wiki',
+                'methodname'    => 'handle_wiki',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/get/wiki.php',
+                'type'          => 'read',
+        ),
+
         'local_wstemplate_handle_chat' => array(
                 'classname'     => 'local_wstemplate_external',
                 'methodname'    => 'handle_chat',
