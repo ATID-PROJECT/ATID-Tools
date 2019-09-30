@@ -23,6 +23,13 @@
 
 // We defined the web service functions to install.
 $functions = array(
+        'count_messages_by_user' => array(
+                'classname'     => 'count_messages_by_user',
+                'methodname'    => 'count_messages',
+                'description' => 'Return number of chat messages by userid',
+                'classpath'   => 'local/wstemplate/ws/custom/count_messages_by_user.php',
+                'type'          => 'read',
+        ),
         'get_chat' => array(
                 'classname'     => 'get_chat',
                 'methodname'    => 'handle_chat',
