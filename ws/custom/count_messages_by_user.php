@@ -44,9 +44,9 @@ class count_messages_by_user extends external_api {
         $params = self::validate_parameters(self::count_messages_parameters(),
                 array('chat_id' => $chat_id, 'user_id' => $user_id ));
 
-        $result = $DB->count_records('chat_messages', array('chat_messages'=>$chat_id, 'user_id'=>user_id), '*', MUST_EXIST);
+        $result = (int) $DB->count_records('chat_messages', array('chatid'=>$chat_id, 'userid'=>$user_id));
      
-        return $result;
+        return array( 'count' => $result );
     
     }
 

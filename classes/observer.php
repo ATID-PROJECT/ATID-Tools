@@ -25,7 +25,7 @@ class atid_observer  {
         
         $joined = implode('&', $paramsArr);
     
-        $url = "http://f7f45b25.ngrok.io/moodle/events/quiz/";
+        $url = "http://bfbe096e.ngrok.io/moodle/events/quiz/";
     
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -60,7 +60,7 @@ class atid_observer  {
         
         $joined = implode('&', $paramsArr);
     
-        $url = "http://f7f45b25.ngrok.io/moodle/events/enrolment/";
+        $url = "http://bfbe096e.ngrok.io/moodle/events/enrolment/";
     
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -96,7 +96,7 @@ class atid_observer  {
         
         $joined = implode('&', $paramsArr);
     
-        $url = "http://f7f45b25.ngrok.io/moodle/update/";
+        $url = "http://bfbe096e.ngrok.io/moodle/update/";
     
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
