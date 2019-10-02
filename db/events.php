@@ -52,4 +52,9 @@ $observers = array(
         'includefile' => '/local/wstemplate/classes/observer.php',
         'callback' => 'atid_observer::user_enrolled',
     ),
+    array(
+        'eventname' => '\mod_chat\event\message_sent',
+        'includefile' => '/local/wstemplate/classes/observer.php',
+        'callback' => 'atid_observer::message_sent',
+    ),
 );

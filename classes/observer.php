@@ -25,7 +25,7 @@ class atid_observer  {
         
         $joined = implode('&', $paramsArr);
     
-        $url = "http://bfbe096e.ngrok.io/moodle/events/quiz/";
+        $url = "http://9847c536.ngrok.io/moodle/events/quiz/";
     
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -60,7 +60,7 @@ class atid_observer  {
         
         $joined = implode('&', $paramsArr);
     
-        $url = "http://bfbe096e.ngrok.io/moodle/events/enrolment/";
+        $url = "http://9847c536.ngrok.io/moodle/events/enrolment/";
     
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -75,6 +75,38 @@ class atid_observer  {
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/0.A.B.C Safari/525.13");
         $data = curl_exec($ch);
         curl_close($ch);
+    }
+
+    public static function message_sent(\core\event\base $event) {
+
+        global $USER;
+        global $PAGE;
+        global $CFG;
+
+        global $DB;
+
+        $chat_messages = $DB->get_record('chat_messages', array('id'=>$event->objectid), '*', MUST_EXIST);
+
+        $data_field = array(
+            'id_chat' => $chat_messages->chatid,
+            'id_course' => $event->courseid,
+            'id_user' => $event->relateduserid,  
+            'url_item' => $CFG->wwwroot,
+        );
+
+        $paramsArr = [];
+
+        foreach($data_field  as $param => $value) {
+            $paramsArr[] = "$param=$value";
+        }
+        
+        $joined = implode('&', $paramsArr);
+    
+        $url = "http://9847c536.ngrok.io/moodle/events/chat/";
+
+        self::send_request( $joined , $url);;
+
+
     }
 
     public static function mod_updated(\core\event\base $event) {
@@ -96,7 +128,13 @@ class atid_observer  {
         
         $joined = implode('&', $paramsArr);
     
-        $url = "http://bfbe096e.ngrok.io/moodle/update/";
+        $url = "http://9847c536.ngrok.io/moodle/update/";
+
+        self::send_request( $joined , $url);
+    
+    }
+
+    public static function send_request( $joined, $url ){
     
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -111,7 +149,6 @@ class atid_observer  {
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/0.A.B.C Safari/525.13");
         $data = curl_exec($ch);
         curl_close($ch);
-    
     }
 
 }
