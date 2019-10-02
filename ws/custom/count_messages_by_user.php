@@ -38,7 +38,6 @@ class count_messages_by_user extends external_api {
     }
 
     public static function count_messages($chat_id='',$user_id=1) {
-
         global $COURSE, $DB;
 
         $params = self::validate_parameters(self::count_messages_parameters(),
@@ -47,7 +46,6 @@ class count_messages_by_user extends external_api {
         $result = (int) $DB->count_records('chat_messages', array('chatid'=>$chat_id, 'userid'=>$user_id));
      
         return array( 'count' => $result );
-    
     }
 
     /**
