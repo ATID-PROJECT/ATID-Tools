@@ -26,47 +26,60 @@ require_once($CFG->dirroot.'/course/lib.php');
 require_once($CFG->dirroot . "/mod/chat/lib.php");
 
 
-class get_chat extends external_api {
+class group_chat_manager extends external_api {
 
-    public static function handle_chat_parameters() {
+
+    public static function group_chat_parameters() {
         return new external_function_parameters(
             array(
-                  'chat_id' => new external_value(PARAM_INT, 'chat description,', VALUE_DEFAULT, 'Hello world, '),
+                  'chat_id' => new external_value(PARAM_TEXT, 'chat id,', VALUE_DEFAULT, 'Hello world, '),
                   'course_id' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
+                  'group_id' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
             )
         );
     }
 
-    public static function handle_chat($chat_id='',$course_id=1) {
+
+    public static function group_chat($chat_id=0,$course_id=1, $group_id=1) {
 
         global $COURSE, $DB;
 
-        $params = self::validate_parameters(self::handle_chat_parameters(),
-                array('chat_id' => $chat_id, 'course_id' => $course_id ));
+        $params = self::validate_parameters(self::group_chat_parameters(),
+                array('chat_id' => $chat_id, 'course_id' => $course_id,
+                'group_id' => $group_id
+             ));
 
         $instance = $DB->get_record('chat', array('id'=>$chat_id), '*', MUST_EXIST);
 
+        $cm = get_coursemodule_from_instance('chat', $chat_id, $instance->course);
+        context_module::instance($cm->id);
+        rebuild_course_cache($course_id);
+
+        $restriction = \core_availability\tree::get_root_json(
+            [\availability_group\condition::get_json($group_id)]);
+        $DB->set_field('course_modules', 'availability',
+        json_encode($restriction), ['id' => $cm->id]);
+        rebuild_course_cache($course_id, true);
+
         $result = array();
-        $result['id'] = $instance->id;
-        $result['name'] = $instance->name;
-        $result['description'] = $instance->intro;
-     
+        $result['hasgrade'] = true;
         return $result;
     
     }
 
-    public static function handle_chat_returns() {
+    /**
+     * Returns description of method result value
+     * @return external_description
+     */
+    public static function group_chat_returns() {
 
         return new external_single_structure(
             array(
-                array(
-                    'id' => new external_value(PARAM_INT, 'Whether the user can do the quiz or not.'),
-                    'name' => new external_value(PARAM_TEXT, 'Whether the user can do the quiz or not.'),
-                    'description' => new external_value(PARAM_TEXT, 'Whether the user can do the quiz or not.'),
-                    
-                )
+                'hasgrade' => new external_value(PARAM_BOOL, 'Whether the user can do the quiz or not.'),
             )
         );
+
+        return new external_value(PARAM_TEXT, 'The welcome message + user first name');
     }
 
 }

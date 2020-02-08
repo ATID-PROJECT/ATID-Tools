@@ -23,6 +23,79 @@
 
 // We defined the web service functions to install.
 $functions = array(
+        'get_grades_status' => array(
+                'classname'     => 'get_grades_status_external',
+                'methodname'    => 'get_grades_status',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/custom/get_grades_status.php',
+                'type'          => 'read',
+        ),
+        'get_status' => array(
+                'classname'     => 'get_status_external',
+                'methodname'    => 'get_status',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/custom/get_status.php',
+                'type'          => 'read',
+        ),
+        'group_chat' => array(
+                'classname'     => 'group_chat_manager',
+                'methodname'    => 'group_chat',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/group/chat.php',
+                'type'          => 'read',
+        ),
+        'group_choice' => array(
+                'classname'     => 'group_choice_manager',
+                'methodname'    => 'group_choice',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/group/choice.php',
+                'type'          => 'read',
+        ),
+        'group_data' => array(
+                'classname'     => 'group_data_manager',
+                'methodname'    => 'group_data',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/group/data.php',
+                'type'          => 'read',
+        ),
+        'group_lti' => array(
+                'classname'     => 'group_lti_manager',
+                'methodname'    => 'group_lti',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/group/externtool.php',
+                'type'          => 'read',
+        ),
+        'group_forum' => array(
+                'classname'     => 'group_forum_manager',
+                'methodname'    => 'group_forum',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/group/forum.php',
+                'type'          => 'read',
+        ),
+        'group_glossary' => array(
+                'classname'     => 'group_glossary_manager',
+                'methodname'    => 'group_glossary',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/group/glossary.php',
+                'type'          => 'read',
+        ),
+        'group_quiz' => array(
+                'classname'     => 'group_quiz_manager',
+                'methodname'    => 'group_quiz',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/group/quiz.php',
+                'type'          => 'read',
+        ),
+        'group_wiki' => array(
+                'classname'     => 'group_wiki_manager',
+                'methodname'    => 'group_wiki',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/group/wiki.php',
+                'type'          => 'read',
+        ),
+
+
+        
         'count_messages_by_user' => array(
                 'classname'     => 'count_messages_by_user',
                 'methodname'    => 'count_messages',
@@ -73,7 +146,7 @@ $functions = array(
                 'type'          => 'read',
         ),
 
-        'local_wstemplate_handle_chat' => array(
+        'create_chat' => array(
                 'classname'     => 'local_wstemplate_external',
                 'methodname'    => 'handle_chat',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
@@ -87,7 +160,7 @@ $functions = array(
                 'classpath'   => 'local/wstemplate/ws/update_chat.php',
                 'type'          => 'read',
         ),
-        'local_wstemplate_handle_data' => array(
+        'create_data' => array(
                 'classname'     => 'database_wstemplate_external',
                 'methodname'    => 'handle_data',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
@@ -101,7 +174,7 @@ $functions = array(
                 'classpath'   => 'local/wstemplate/ws/update_database.php',
                 'type'          => 'read',
         ),
-        'local_wstemplate_handle_forum' => array(
+        'create_forum' => array(
                 'classname'     => 'forum_wstemplate_external',
                 'methodname'    => 'handle_forum',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
@@ -129,7 +202,7 @@ $functions = array(
                 'classpath'   => 'local/wstemplate/ws/update_extern_tool.php',
                 'type'          => 'read',
         ),
-        'local_wstemplate_handle_glossary' => array(
+        'create_glossary' => array(
                 'classname'     => 'glossario_wstemplate_external',
                 'methodname'    => 'handle_glossary',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
@@ -143,7 +216,7 @@ $functions = array(
                 'classpath'   => 'local/wstemplate/ws/update_glossario.php',
                 'type'          => 'read',
         ),
-        'local_wstemplate_handle_wiki' => array(
+        'create_wiki' => array(
                 'classname'     => 'wiki_wstemplate_external',
                 'methodname'    => 'handle_wiki',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
@@ -157,7 +230,7 @@ $functions = array(
                 'classpath'   => 'local/wstemplate/ws/update_wiki.php',
                 'type'          => 'read',
         ),
-        'local_wstemplate_handle_choice' => array(
+        'create_choice' => array(
                 'classname'   => 'choice_wstemplate_external',
                 'methodname'  => 'handle_choice',
                 'classpath'   => 'local/wstemplate/ws/choice.php',
@@ -171,7 +244,7 @@ $functions = array(
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
                 'type'        => 'read',
         ),
-        'local_wstemplate_handle_choice_option' => array(
+        'create_choice_option' => array(
                 'classname'   => 'choice_option_wstemplate_external',
                 'methodname'  => 'handle_choice_options',
                 'classpath'   => 'local/wstemplate/ws/choice_option.php',
@@ -185,7 +258,7 @@ $functions = array(
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
                 'type'        => 'read',
         ),
-        'local_wstemplate_handle_quiz' => array(
+        'create_quiz' => array(
                 'classname'   => 'quiz_wstemplate_external',
                 'methodname'  => 'get_quizzes',
                 'classpath'   => 'local/wstemplate/ws/quiz.php',
@@ -206,9 +279,9 @@ $functions = array(
 // We define the services to install as pre-build services. A pre-build service is not editable by administrator.
 $services = array(
         'My service' => array(
-                'functions' => array ('local_wstemplate_handle_chat','local_wstemplate_handle_data', 'local_wstemplate_handle_forum', 
-                'local_wstemplate_handle_glossary', 'local_wstemplate_handle_wiki','local_wstemplate_handle_choice','local_wstemplate_handle_choice_option',
-                'local_wstemplate_handle_quiz'
+                'functions' => array ('create_chat','create_data', 'create_forum', 
+                'create_glossary', 'create_wiki','create_choice','create_choice_option',
+                'create_quiz'
         ),
                 'restrictedusers' => 0,
                 'enabled'=>1,
@@ -217,8 +290,8 @@ $services = array(
 
 /*
 'local_wstemplate_handle_assign',
-                'local_wstemplate_handle_choice', 'local_wstemplate_handle_data', 'local_wstemplate_handle_lti','local_wstemplate_handle_feedback',
-                'local_wstemplate_handle_forum','local_wstemplate_handle_glossary','local_wstemplate_handle_lesson','local_wstemplate_get_quizzes',
+                'create_choice', 'create_data', 'local_wstemplate_handle_lti','local_wstemplate_handle_feedback',
+                'create_forum','create_glossary','local_wstemplate_handle_lesson','local_wstemplate_get_quizzes',
                 'local_wstemplate_handle_survey',
 
    'local_wstemplate_handle_assign' => array(
@@ -228,7 +301,7 @@ $services = array(
                 'classpath'   => 'local/wstemplate/ws/assign.php',
                 'type'          => 'read',
         ),
-        'local_wstemplate_handle_choice' => array(
+        'create_choice' => array(
                 'classname'   => 'local_wstemplate_external',
                 'methodname'  => 'handle_choice',
                 'classpath'   => 'local/wstemplate/ws/choice.php',
@@ -236,7 +309,7 @@ $services = array(
                 'type'        => 'read',
         ),
 
-        'local_wstemplate_handle_data' => array(
+        'create_data' => array(
                 'classname'     => 'local_wstemplate_external',
                 'methodname'    => 'handle_data',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
@@ -258,14 +331,14 @@ $services = array(
                 'type'        => 'read',
         ),
 
-        'local_wstemplate_handle_forum' => array(
+        'create_forum' => array(
                 'classname'     => 'local_wstemplate_external',
                 'methodname'    => 'handle_forum',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
                 'classpath'   => 'local/wstemplate/ws/forum.php',
                 'type'          => 'read',
         ),
-        'local_wstemplate_handle_glossary' => array(
+        'create_glossary' => array(
                 'classname'     => 'local_wstemplate_external',
                 'methodname'    => 'handle_glossary',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',

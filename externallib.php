@@ -277,106 +277,106 @@ class local_wstemplate_external extends external_api {
     public static function hello_world_returns() {
         return new external_single_structure(
             array(
-          
-                            'id' => new external_value(PARAM_INT, 'Standard Moodle primary key.'),
-                            'course' => new external_value(PARAM_INT, 'Foreign key reference to the course this quiz is part of.'),
-                            'coursemodule' => new external_value(PARAM_INT, 'Course module id.'),
-                            'name' => new external_value(PARAM_RAW, 'Quiz name.'),
-                            'intro' => new external_value(PARAM_RAW, 'Quiz introduction text.', VALUE_OPTIONAL),
-                            'introformat' => new external_format_value('intro', VALUE_OPTIONAL),
-                            'timeopen' => new external_value(PARAM_INT, 'The time when this quiz opens. (0 = no restriction.)',
-                                                                VALUE_OPTIONAL),
-                            'timeclose' => new external_value(PARAM_INT, 'The time when this quiz closes. (0 = no restriction.)',
-                                                                VALUE_OPTIONAL),
-                            'timelimit' => new external_value(PARAM_INT, 'The time limit for quiz attempts, in seconds.',
-                                                                VALUE_OPTIONAL),
-                            'overduehandling' => new external_value(PARAM_ALPHA, 'The method used to handle overdue attempts.
-                                                                    \'autosubmit\', \'graceperiod\' or \'autoabandon\'.',
+
+                'id' => new external_value(PARAM_INT, 'Standard Moodle primary key.'),
+                'course' => new external_value(PARAM_INT, 'Foreign key reference to the course this quiz is part of.'),
+                'coursemodule' => new external_value(PARAM_INT, 'Course module id.'),
+                'name' => new external_value(PARAM_RAW, 'Quiz name.'),
+                'intro' => new external_value(PARAM_RAW, 'Quiz introduction text.', VALUE_OPTIONAL),
+                'introformat' => new external_format_value('intro', VALUE_OPTIONAL),
+                'timeopen' => new external_value(PARAM_INT, 'The time when this quiz opens. (0 = no restriction.)',
+                                                    VALUE_OPTIONAL),
+                'timeclose' => new external_value(PARAM_INT, 'The time when this quiz closes. (0 = no restriction.)',
+                                                    VALUE_OPTIONAL),
+                'timelimit' => new external_value(PARAM_INT, 'The time limit for quiz attempts, in seconds.',
+                                                    VALUE_OPTIONAL),
+                'overduehandling' => new external_value(PARAM_ALPHA, 'The method used to handle overdue attempts.
+                                                        \'autosubmit\', \'graceperiod\' or \'autoabandon\'.',
+                                                        VALUE_OPTIONAL),
+                'graceperiod' => new external_value(PARAM_INT, 'The amount of time (in seconds) after the time limit
+                                                    runs out during which attempts can still be submitted,
+                                                    if overduehandling is set to allow it.', VALUE_OPTIONAL),
+                'preferredbehaviour' => new external_value(PARAM_ALPHANUMEXT, 'The behaviour to ask questions to use.',
+                                                            VALUE_OPTIONAL),
+                'canredoquestions' => new external_value(PARAM_INT, 'Allows students to redo any completed question
+                                                            within a quiz attempt.', VALUE_OPTIONAL),
+                'attempts' => new external_value(PARAM_INT, 'The maximum number of attempts a student is allowed.',
+                                                    VALUE_OPTIONAL),
+                'attemptonlast' => new external_value(PARAM_INT, 'Whether subsequent attempts start from teh answer
+                                                        to the previous attempt (1) or start blank (0).',
+                                                        VALUE_OPTIONAL),
+                'grademethod' => new external_value(PARAM_INT, 'One of the values QUIZ_GRADEHIGHEST, QUIZ_GRADEAVERAGE,
+                                                        QUIZ_ATTEMPTFIRST or QUIZ_ATTEMPTLAST.', VALUE_OPTIONAL),
+                'decimalpoints' => new external_value(PARAM_INT, 'Number of decimal points to use when displaying
+                                                        grades.', VALUE_OPTIONAL),
+                'questiondecimalpoints' => new external_value(PARAM_INT, 'Number of decimal points to use when
+                                                                displaying question grades.
+                                                                (-1 means use decimalpoints.)', VALUE_OPTIONAL),
+                'reviewattempt' => new external_value(PARAM_INT, 'Whether users are allowed to review their quiz
+                                                        attempts at various times. This is a bit field, decoded by the
+                                                        mod_quiz_display_options class. It is formed by ORing together
+                                                        the constants defined there.', VALUE_OPTIONAL),
+                'reviewcorrectness' => new external_value(PARAM_INT, 'Whether users are allowed to review their quiz
+                                                            attempts at various times.
+                                                            A bit field, like reviewattempt.', VALUE_OPTIONAL),
+                'reviewmarks' => new external_value(PARAM_INT, 'Whether users are allowed to review their quiz attempts
+                                                    at various times. A bit field, like reviewattempt.',
+                                                    VALUE_OPTIONAL),
+                'reviewspecificfeedback' => new external_value(PARAM_INT, 'Whether users are allowed to review their
+                                                                quiz attempts at various times. A bit field, like
+                                                                reviewattempt.', VALUE_OPTIONAL),
+                'reviewgeneralfeedback' => new external_value(PARAM_INT, 'Whether users are allowed to review their
+                                                                quiz attempts at various times. A bit field, like
+                                                                reviewattempt.', VALUE_OPTIONAL),
+                'reviewrightanswer' => new external_value(PARAM_INT, 'Whether users are allowed to review their quiz
+                                                            attempts at various times. A bit field, like
+                                                            reviewattempt.', VALUE_OPTIONAL),
+                'reviewoverallfeedback' => new external_value(PARAM_INT, 'Whether users are allowed to review their quiz
+                                                                attempts at various times. A bit field, like
+                                                                reviewattempt.', VALUE_OPTIONAL),
+                'questionsperpage' => new external_value(PARAM_INT, 'How often to insert a page break when editing
+                                                            the quiz, or when shuffling the question order.',
+                                                            VALUE_OPTIONAL),
+                'navmethod' => new external_value(PARAM_ALPHA, 'Any constraints on how the user is allowed to navigate
+                                                    around the quiz. Currently recognised values are
+                                                    \'free\' and \'seq\'.', VALUE_OPTIONAL),
+                'shuffleanswers' => new external_value(PARAM_INT, 'Whether the parts of the question should be shuffled,
+                                                        in those question types that support it.', VALUE_OPTIONAL),
+                'sumgrades' => new external_value(PARAM_FLOAT, 'The total of all the question instance maxmarks.',
+                                                    VALUE_OPTIONAL),
+                'grade' => new external_value(PARAM_FLOAT, 'The total that the quiz overall grade is scaled to be
+                                                out of.', VALUE_OPTIONAL),
+                'timecreated' => new external_value(PARAM_INT, 'The time when the quiz was added to the course.',
+                                                    VALUE_OPTIONAL),
+                'timemodified' => new external_value(PARAM_INT, 'Last modified time.',
+                                                        VALUE_OPTIONAL),
+                'password' => new external_value(PARAM_RAW, 'A password that the student must enter before starting or
+                                                    continuing a quiz attempt.', VALUE_OPTIONAL),
+                'subnet' => new external_value(PARAM_RAW, 'Used to restrict the IP addresses from which this quiz can
+                                                be attempted. The format is as requried by the address_in_subnet
+                                                function.', VALUE_OPTIONAL),
+                'browsersecurity' => new external_value(PARAM_ALPHANUMEXT, 'Restriciton on the browser the student must
+                                                        use. E.g. \'securewindow\'.', VALUE_OPTIONAL),
+                'delay1' => new external_value(PARAM_INT, 'Delay that must be left between the first and second attempt,
+                                                in seconds.', VALUE_OPTIONAL),
+                'delay2' => new external_value(PARAM_INT, 'Delay that must be left between the second and subsequent
+                                                attempt, in seconds.', VALUE_OPTIONAL),
+                'showuserpicture' => new external_value(PARAM_INT, 'Option to show the user\'s picture during the
+                                                        attempt and on the review page.', VALUE_OPTIONAL),
+                'showblocks' => new external_value(PARAM_INT, 'Whether blocks should be shown on the attempt.php and
+                                                    review.php pages.', VALUE_OPTIONAL),
+                'completionattemptsexhausted' => new external_value(PARAM_INT, 'Mark quiz complete when the student has
+                                                                    exhausted the maximum number of attempts',
                                                                     VALUE_OPTIONAL),
-                            'graceperiod' => new external_value(PARAM_INT, 'The amount of time (in seconds) after the time limit
-                                                                runs out during which attempts can still be submitted,
-                                                                if overduehandling is set to allow it.', VALUE_OPTIONAL),
-                            'preferredbehaviour' => new external_value(PARAM_ALPHANUMEXT, 'The behaviour to ask questions to use.',
-                                                                        VALUE_OPTIONAL),
-                            'canredoquestions' => new external_value(PARAM_INT, 'Allows students to redo any completed question
-                                                                        within a quiz attempt.', VALUE_OPTIONAL),
-                            'attempts' => new external_value(PARAM_INT, 'The maximum number of attempts a student is allowed.',
-                                                                VALUE_OPTIONAL),
-                            'attemptonlast' => new external_value(PARAM_INT, 'Whether subsequent attempts start from teh answer
-                                                                    to the previous attempt (1) or start blank (0).',
-                                                                    VALUE_OPTIONAL),
-                            'grademethod' => new external_value(PARAM_INT, 'One of the values QUIZ_GRADEHIGHEST, QUIZ_GRADEAVERAGE,
-                                                                    QUIZ_ATTEMPTFIRST or QUIZ_ATTEMPTLAST.', VALUE_OPTIONAL),
-                            'decimalpoints' => new external_value(PARAM_INT, 'Number of decimal points to use when displaying
-                                                                    grades.', VALUE_OPTIONAL),
-                            'questiondecimalpoints' => new external_value(PARAM_INT, 'Number of decimal points to use when
-                                                                            displaying question grades.
-                                                                            (-1 means use decimalpoints.)', VALUE_OPTIONAL),
-                            'reviewattempt' => new external_value(PARAM_INT, 'Whether users are allowed to review their quiz
-                                                                    attempts at various times. This is a bit field, decoded by the
-                                                                    mod_quiz_display_options class. It is formed by ORing together
-                                                                    the constants defined there.', VALUE_OPTIONAL),
-                            'reviewcorrectness' => new external_value(PARAM_INT, 'Whether users are allowed to review their quiz
-                                                                        attempts at various times.
-                                                                        A bit field, like reviewattempt.', VALUE_OPTIONAL),
-                            'reviewmarks' => new external_value(PARAM_INT, 'Whether users are allowed to review their quiz attempts
-                                                                at various times. A bit field, like reviewattempt.',
-                                                                VALUE_OPTIONAL),
-                            'reviewspecificfeedback' => new external_value(PARAM_INT, 'Whether users are allowed to review their
-                                                                            quiz attempts at various times. A bit field, like
-                                                                            reviewattempt.', VALUE_OPTIONAL),
-                            'reviewgeneralfeedback' => new external_value(PARAM_INT, 'Whether users are allowed to review their
-                                                                            quiz attempts at various times. A bit field, like
-                                                                            reviewattempt.', VALUE_OPTIONAL),
-                            'reviewrightanswer' => new external_value(PARAM_INT, 'Whether users are allowed to review their quiz
-                                                                        attempts at various times. A bit field, like
-                                                                        reviewattempt.', VALUE_OPTIONAL),
-                            'reviewoverallfeedback' => new external_value(PARAM_INT, 'Whether users are allowed to review their quiz
-                                                                            attempts at various times. A bit field, like
-                                                                            reviewattempt.', VALUE_OPTIONAL),
-                            'questionsperpage' => new external_value(PARAM_INT, 'How often to insert a page break when editing
-                                                                        the quiz, or when shuffling the question order.',
-                                                                        VALUE_OPTIONAL),
-                            'navmethod' => new external_value(PARAM_ALPHA, 'Any constraints on how the user is allowed to navigate
-                                                                around the quiz. Currently recognised values are
-                                                                \'free\' and \'seq\'.', VALUE_OPTIONAL),
-                            'shuffleanswers' => new external_value(PARAM_INT, 'Whether the parts of the question should be shuffled,
-                                                                    in those question types that support it.', VALUE_OPTIONAL),
-                            'sumgrades' => new external_value(PARAM_FLOAT, 'The total of all the question instance maxmarks.',
-                                                                VALUE_OPTIONAL),
-                            'grade' => new external_value(PARAM_FLOAT, 'The total that the quiz overall grade is scaled to be
-                                                            out of.', VALUE_OPTIONAL),
-                            'timecreated' => new external_value(PARAM_INT, 'The time when the quiz was added to the course.',
-                                                                VALUE_OPTIONAL),
-                            'timemodified' => new external_value(PARAM_INT, 'Last modified time.',
-                                                                    VALUE_OPTIONAL),
-                            'password' => new external_value(PARAM_RAW, 'A password that the student must enter before starting or
-                                                                continuing a quiz attempt.', VALUE_OPTIONAL),
-                            'subnet' => new external_value(PARAM_RAW, 'Used to restrict the IP addresses from which this quiz can
-                                                            be attempted. The format is as requried by the address_in_subnet
-                                                            function.', VALUE_OPTIONAL),
-                            'browsersecurity' => new external_value(PARAM_ALPHANUMEXT, 'Restriciton on the browser the student must
-                                                                    use. E.g. \'securewindow\'.', VALUE_OPTIONAL),
-                            'delay1' => new external_value(PARAM_INT, 'Delay that must be left between the first and second attempt,
-                                                            in seconds.', VALUE_OPTIONAL),
-                            'delay2' => new external_value(PARAM_INT, 'Delay that must be left between the second and subsequent
-                                                            attempt, in seconds.', VALUE_OPTIONAL),
-                            'showuserpicture' => new external_value(PARAM_INT, 'Option to show the user\'s picture during the
-                                                                    attempt and on the review page.', VALUE_OPTIONAL),
-                            'showblocks' => new external_value(PARAM_INT, 'Whether blocks should be shown on the attempt.php and
-                                                                review.php pages.', VALUE_OPTIONAL),
-                            'completionattemptsexhausted' => new external_value(PARAM_INT, 'Mark quiz complete when the student has
-                                                                                exhausted the maximum number of attempts',
-                                                                                VALUE_OPTIONAL),
-                            'completionpass' => new external_value(PARAM_INT, 'Wheter to require passing grade', VALUE_OPTIONAL),
-                            'autosaveperiod' => new external_value(PARAM_INT, 'Auto-save delay', VALUE_OPTIONAL),
-                            'hasfeedback' => new external_value(PARAM_INT, 'Whether the quiz has any non-blank feedback text',
-                                                                VALUE_OPTIONAL),
-                            'hasquestions' => new external_value(PARAM_INT, 'Whether the quiz has questions', VALUE_OPTIONAL),
-                            'section' => new external_value(PARAM_INT, 'Course section id', VALUE_OPTIONAL),
-                            'visible' => new external_value(PARAM_INT, 'Module visibility', VALUE_OPTIONAL),
-                            'groupmode' => new external_value(PARAM_INT, 'Group mode', VALUE_OPTIONAL),
-                            'groupingid' => new external_value(PARAM_INT, 'Grouping id', VALUE_OPTIONAL),
+                'completionpass' => new external_value(PARAM_INT, 'Wheter to require passing grade', VALUE_OPTIONAL),
+                'autosaveperiod' => new external_value(PARAM_INT, 'Auto-save delay', VALUE_OPTIONAL),
+                'hasfeedback' => new external_value(PARAM_INT, 'Whether the quiz has any non-blank feedback text',
+                                                    VALUE_OPTIONAL),
+                'hasquestions' => new external_value(PARAM_INT, 'Whether the quiz has questions', VALUE_OPTIONAL),
+                'section' => new external_value(PARAM_INT, 'Course section id', VALUE_OPTIONAL),
+                'visible' => new external_value(PARAM_INT, 'Module visibility', VALUE_OPTIONAL),
+                'groupmode' => new external_value(PARAM_INT, 'Group mode', VALUE_OPTIONAL),
+                'groupingid' => new external_value(PARAM_INT, 'Grouping id', VALUE_OPTIONAL),
 
             )
         );
