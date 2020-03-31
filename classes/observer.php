@@ -7,16 +7,16 @@ class atid_observer  {
 
     public static function quiz_submitted(\core\event\base $event) {
         global $DB,$CFG;
-
+        
         $attempt = $DB->get_record('quiz_attempts', array('id'=>$event->objectid), '*', MUST_EXIST);
-
+        
         $data_field = array(
             'id_quiz' => $attempt->quiz,
             'id_course' => $event->courseid,
             'id_user' => $event->relateduserid, 
             'url_item' => $CFG->wwwroot,
         );
-
+        
         $paramsArr = [];
 
         foreach($data_field  as $param => $value) {
@@ -25,7 +25,7 @@ class atid_observer  {
         
         $joined = implode('&', $paramsArr);
     
-        $url = "http://758d8142.ngrok.io/moodle/events/quiz/";
+        $url = "http://localhost:5000/moodle/events/quiz/";
     
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -60,7 +60,7 @@ class atid_observer  {
         
         $joined = implode('&', $paramsArr);
     
-        $url = "http://758d8142.ngrok.io/moodle/events/enrolment/";
+        $url = "http://localhost:5000/moodle/events/enrolment/";
     
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -101,7 +101,7 @@ class atid_observer  {
         
         $joined = implode('&', $paramsArr);
     
-        $url = "http://758d8142.ngrok.io/moodle/events/chat/";
+        $url = "http://localhost:5000/moodle/events/chat/";
 
         self::send_request( $joined , $url);;
 
@@ -126,7 +126,7 @@ class atid_observer  {
         
         $joined = implode('&', $paramsArr);
     
-        $url = "http://758d8142.ngrok.io/moodle/update/";
+        $url = "http://localhost:5000/moodle/update/";
 
         self::send_request( $joined , $url);
     

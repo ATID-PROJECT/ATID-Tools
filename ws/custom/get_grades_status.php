@@ -36,7 +36,7 @@ class get_grades_status_external extends external_api {
         );
     }
 
-    public static function get_grades_status($user_list='') {
+    public static function get_grades_status($user_list='', $courseid = 0) {
         global $DB;
 
         $params = self::validate_parameters(self::get_grades_status_parameters(),
@@ -45,12 +45,15 @@ class get_grades_status_external extends external_api {
         $sql = "
         SELECT u.id as id, u.firstname as name, u.email as email,
         SUM(qa.sumgrades) as current_grade, 
-        SUM(q.grade) as total_grade
+        SUM(qa.grade) as total_grade
         FROM mdl_user as u
-        LEFT JOIN mdl_quiz_attempts as qa ON qa.userid = u.id
-        LEFT JOIN mdl_quiz as q ON q.id = qa.quiz and q.course = ".$courseid."
+        LEFT JOIN (
+            SELECT qa.*, q.grade as grade FROM mdl_quiz_attempts as qa
+            INNER JOIN mdl_quiz as q ON q.id = qa.quiz and q.course = ".$courseid."
+            GROUP BY qa.userid ORDER BY qa.sumgrades DESC
+        ) as qa ON qa.userid = u.id
         WHERE u.id in (".$user_list.")
-        GROUP BY(qa.sumgrades);
+        GROUP BY(u.id);
         ";
 
         $query_result = $DB->get_recordset_sql($sql);
