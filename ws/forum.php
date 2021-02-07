@@ -22,6 +22,7 @@
  */
 require_once($CFG->libdir . "/externallib.php");
 
+
 require_once($CFG->dirroot.'/course/lib.php');
 require_once($CFG->dirroot . "/mod/forum/lib.php");
 
@@ -106,12 +107,12 @@ class forum_wstemplate_external extends external_api {
         $cm = get_coursemodule_from_id('forum',  $forum->coursemodule, $instance->course, true, MUST_EXIST);
         context_module::instance($cm->id);
         rebuild_course_cache($course->id);
-        add_to_log($course_id, "course", "add mod",
+        /*add_to_log($course_id, "course", "add mod",
         "../../mod/$cm->modulename/view.php?id=$cm->id",
         "$cm->modulename $cm->instance");
         add_to_log($course_id, 'forum', "add",
         "view.php?id=$cm->coursemodule",
-        "$cm->instance", $cm->id);
+        "$cm->instance", $cm->id);*/
 
         $restriction = \core_availability\tree::get_root_json(
             [\availability_group\condition::get_json($group_id)]);

@@ -95,7 +95,7 @@ $functions = array(
         ),
 
 
-        
+
         'count_messages_by_user' => array(
                 'classname'     => 'count_messages_by_user',
                 'methodname'    => 'count_messages',
@@ -272,19 +272,27 @@ $functions = array(
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
                 'type'        => 'read',
         ),
+        'delete_quiz' => array(
+                'classname'   => 'delete_quiz_manager',
+                'methodname'  => 'delete_quiz',
+                'classpath'   => 'local/wstemplate/ws/delete_quiz_manager.php',
+                'description' => 'Delete quiz activity by id parameter.',
+                'type'        => 'read',
+        ),
 
-        
+
 );
 
 // We define the services to install as pre-build services. A pre-build service is not editable by administrator.
 $services = array(
         'My service' => array(
-                'functions' => array ('create_chat','create_data', 'create_forum', 
-                'create_glossary', 'create_wiki','create_choice','create_choice_option',
-                'create_quiz'
-        ),
+                'functions' => array(
+                        'create_chat', 'create_data', 'create_forum',
+                        'create_glossary', 'create_wiki', 'create_choice', 'create_choice_option',
+                        'create_quiz'
+                ),
                 'restrictedusers' => 0,
-                'enabled'=>1,
+                'enabled' => 1,
         )
 );
 

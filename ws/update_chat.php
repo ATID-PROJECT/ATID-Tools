@@ -22,6 +22,7 @@
  */
 require_once($CFG->libdir . "/externallib.php");
 
+
 require_once($CFG->dirroot.'/course/lib.php');
 require_once($CFG->dirroot . "/mod/chat/lib.php");
 
@@ -58,12 +59,12 @@ class update_chat extends external_api {
 
         context_module::instance($cm->id);
         rebuild_course_cache($course->id);
-        add_to_log($course_id, "course", "add mod",
+        /*add_to_log($course_id, "course", "add mod",
         "../../mod/$cm->modulename/view.php?id=$cm->id",
         "$cm->modulename $cm->instance");
         add_to_log($course_id, 'chat', "add",
         "view.php?id=$cm->coursemodule",
-        "$cm->instance", $cm->id);
+        "$cm->instance", $cm->id);*/
 
         $warnings = array();
 

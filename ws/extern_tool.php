@@ -23,6 +23,7 @@
  */
 require_once($CFG->libdir . "/externallib.php");
 
+
 require_once($CFG->dirroot.'/course/lib.php');
 require_once($CFG->dirroot . "/mod/lti/lib.php");
 
@@ -129,12 +130,12 @@ class local_wstemplate_handle_lti extends external_api {
         $cm = get_coursemodule_from_id('lti',  $lti->coursemodule, $instance->course, true, MUST_EXIST);
         context_module::instance($cm->id);
         rebuild_course_cache($course->id);
-        add_to_log($course_id, "course", "add mod",
+        /*add_to_log($course_id, "course", "add mod",
         "../../mod/$cm->modulename/view.php?id=$cm->id",
         "$cm->modulename $cm->instance");
         add_to_log($course_id, 'lti', "add",
         "view.php?id=$cm->coursemodule",
-        "$cm->instance", $cm->id);
+        "$cm->instance", $cm->id);*/
 
         $restriction = \core_availability\tree::get_root_json(
             [\availability_group\condition::get_json($group_id)]);
