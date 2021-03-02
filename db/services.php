@@ -93,9 +93,6 @@ $functions = array(
                 'classpath'   => 'local/wstemplate/ws/group/wiki.php',
                 'type'          => 'read',
         ),
-
-
-
         'count_messages_by_user' => array(
                 'classname'     => 'count_messages_by_user',
                 'methodname'    => 'count_messages',
@@ -277,6 +274,20 @@ $functions = array(
                 'methodname'  => 'delete_quiz',
                 'classpath'   => 'local/wstemplate/ws/delete_quiz_manager.php',
                 'description' => 'Delete quiz activity by id parameter.',
+                'type'        => 'read',
+        ),
+        'delete_forum' => array(
+                'classname'   => 'delete_forum_manager',
+                'methodname'  => 'delete_forum',
+                'classpath'   => 'local/wstemplate/ws/delete_forum_manager.php',
+                'description' => 'Delete forum activity by id parameter.',
+                'type'        => 'read',
+        ),
+        'delete_chat' => array(
+                'classname'   => 'delete_chat_manager',
+                'methodname'  => 'delete_chat',
+                'classpath'   => 'local/wstemplate/ws/delete_chat_manager.php',
+                'description' => 'Delete chat activity by id parameter.',
                 'type'        => 'read',
         ),
 

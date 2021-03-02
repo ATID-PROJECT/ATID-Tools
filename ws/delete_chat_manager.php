@@ -22,51 +22,58 @@
  */
 require_once($CFG->libdir . "/externallib.php");
 require_once($CFG->dirroot . '/course/lib.php');
-require_once($CFG->dirroot . "/mod/quiz/lib.php");
+require_once($CFG->dirroot . "/mod/chat/lib.php");
 
 require_once($CFG->dirroot . '/calendar/lib.php');
 
 
-class delete_quiz_manager extends external_api
+class delete_chat_manager extends external_api
 {
 
     /**
      * Returns description of method result value
      * @return external_function_parameters
      */
-    public static function delete_quiz_parameters()
+    public static function delete_chat_parameters()
     {
         return new external_function_parameters(
             array(
-                'quiz_id' => new external_value(PARAM_INT, 'quiz id', VALUE_DEFAULT, 'Hello world, '),
+                'chat_id' => new external_value(PARAM_INT, 'chat id', VALUE_DEFAULT, 'Hello world, '),
             )
         );
     }
 
-    public static function delete_quiz($quiz_id)
+    public static function delete_chat($chat_id)
     {
 
         global $DB;
 
-        if (!$quiz = $DB->get_record('quiz', array('id' => $quiz_id))) {
-            $result = array();
-            $result['sucess'] = false;
-            return $result;
+
+        if (!$chat = $DB->get_record('chat', array('id' => $chat_id))) {
+            return false;
         }
 
-        $course_id = $quiz->course;
+        $result = true;
+        $course_id = $chat->course;
 
-        quiz_delete_all_attempts($quiz);
-        quiz_delete_all_overrides($quiz);
+        // Delete any dependent records here
 
-        $events = $DB->get_records('event', array('modulename' => 'quiz', 'instance' => $quiz->id));
-        foreach ($events as $event) {
-            $event = calendar_event::load($event);
-            $event->delete();
+        if (!$DB->delete_records('chat', array('id' => $chat->id))) {
+            $result = false;
+        }
+        if (!$DB->delete_records('chat_messages', array('chatid' => $chat->id))) {
+            $result = false;
+        }
+        if (!$DB->delete_records('chat_messages_current', array('chatid' => $chat->id))) {
+            $result = false;
+        }
+        if (!$DB->delete_records('chat_users', array('chatid' => $chat->id))) {
+            $result = false;
         }
 
-        quiz_grade_item_delete($quiz);
-        $DB->delete_records('quiz', array('id' => $quiz->id));
+        if (!$DB->delete_records('event', array('modulename' => 'chat', 'instance' => $chat->id))) {
+            $result = false;
+        }
 
         rebuild_course_cache($course_id);
 
@@ -75,12 +82,12 @@ class delete_quiz_manager extends external_api
         return $result;
     }
 
-    public static function delete_quiz_returns()
+    public static function delete_chat_returns()
     {
 
         return new external_single_structure(
             array(
-                'sucess' => new external_value(PARAM_BOOL, 'Whether the user can do the quiz or not.'),
+                'sucess' => new external_value(PARAM_BOOL, 'Whether the user can do the or not.'),
             )
         );
         return new external_value(PARAM_TEXT, 'The welcome message + user first name');

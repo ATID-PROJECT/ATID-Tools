@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 
 $observers = array(
-    
+
     array(
         'eventname' => '\core\event\course_module_updated',
         'includefile' => '/local/wstemplate/classes/observer.php',
@@ -36,6 +36,16 @@ $observers = array(
         'eventname' => '\core\event\module_updated',
         'includefile' => '/local/wstemplate/classes/observer.php',
         'callback' => 'atid_observer::mod_updated',
+    ),
+    array(
+        'eventname' => '\core\event\course_content_deleted',
+        'includefile' => '/local/wstemplate/classes/observer.php',
+        'callback' => 'atid_observer::mod_deleted',
+    ),
+    array(
+        'eventname' => '\core\event\course_deleted',
+        'includefile' => '/local/wstemplate/classes/observer.php',
+        'callback' => 'atid_observer::mod_deleted',
     ),
     array(
         'eventname' => '\mod_quiz\event\attempt_submitted',
