@@ -1,6 +1,8 @@
 name: Create ATID Archive
 on:  
   push:
+    tags:
+      - '*'
     branches:
       - master
 jobs:
@@ -16,6 +18,5 @@ jobs:
     - name: Upload Release
       uses: ncipollo/release-action@v1
       with:
-        fetch-depth: 0
         artifacts: "release.zip"
         token: ${{ secrets.GITHUB_TOKEN }}
