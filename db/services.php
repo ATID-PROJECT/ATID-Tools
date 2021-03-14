@@ -144,7 +144,7 @@ $functions = array(
         ),
 
         'create_chat' => array(
-                'classname'     => 'local_wstemplate_external',
+                'classname'     => 'atid_tools_external',
                 'methodname'    => 'handle_chat',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
                 'classpath'   => 'local/wstemplate/ws/chat.php',
@@ -185,8 +185,8 @@ $functions = array(
                 'classpath'   => 'local/wstemplate/ws/update_forum.php',
                 'type'          => 'read',
         ),
-        'local_wstemplate_handle_lti' => array(
-                'classname'     => 'local_wstemplate_handle_lti',
+        'atid_tools_handle_lti' => array(
+                'classname'     => 'atid_tools_handle_lti',
                 'methodname'    => 'handle_lti',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
                 'classpath'   => 'local/wstemplate/ws/extern_tool.php',
@@ -308,20 +308,20 @@ $services = array(
 );
 
 /*
-'local_wstemplate_handle_assign',
-                'create_choice', 'create_data', 'local_wstemplate_handle_lti','local_wstemplate_handle_feedback',
-                'create_forum','create_glossary','local_wstemplate_handle_lesson','local_wstemplate_get_quizzes',
-                'local_wstemplate_handle_survey',
+'atid_tools_handle_assign',
+                'create_choice', 'create_data', 'atid_tools_handle_lti','atid_tools_handle_feedback',
+                'create_forum','create_glossary','atid_tools_handle_lesson','atid_tools_get_quizzes',
+                'atid_tools_handle_survey',
 
-   'local_wstemplate_handle_assign' => array(
-                'classname'     => 'local_wstemplate_external',
+   'atid_tools_handle_assign' => array(
+                'classname'     => 'atid_tools_external',
                 'methodname'    => 'handle_assign',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
                 'classpath'   => 'local/wstemplate/ws/assign.php',
                 'type'          => 'read',
         ),
         'create_choice' => array(
-                'classname'   => 'local_wstemplate_external',
+                'classname'   => 'atid_tools_external',
                 'methodname'  => 'handle_choice',
                 'classpath'   => 'local/wstemplate/ws/choice.php',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
@@ -329,21 +329,21 @@ $services = array(
         ),
 
         'create_data' => array(
-                'classname'     => 'local_wstemplate_external',
+                'classname'     => 'atid_tools_external',
                 'methodname'    => 'handle_data',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
                 'classpath'   => 'local/wstemplate/ws/database.php',
                 'type'          => 'read',
         ),
-        'local_wstemplate_handle_lti' => array(
-                'classname'     => 'local_wstemplate_external',
+        'atid_tools_handle_lti' => array(
+                'classname'     => 'atid_tools_external',
                 'methodname'    => 'handle_lti',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
                 'classpath'   => 'local/wstemplate/ws/extern_tool.php',
                 'type'          => 'read',
         ),
-        'local_wstemplate_handle_feedback' => array(
-                'classname'   => 'local_wstemplate_external',
+        'atid_tools_handle_feedback' => array(
+                'classname'   => 'atid_tools_external',
                 'methodname'  => 'handle_feedback',
                 'classpath'   => 'local/wstemplate/ws/feedback.php',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
@@ -351,35 +351,35 @@ $services = array(
         ),
 
         'create_forum' => array(
-                'classname'     => 'local_wstemplate_external',
+                'classname'     => 'atid_tools_external',
                 'methodname'    => 'handle_forum',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
                 'classpath'   => 'local/wstemplate/ws/forum.php',
                 'type'          => 'read',
         ),
         'create_glossary' => array(
-                'classname'     => 'local_wstemplate_external',
+                'classname'     => 'atid_tools_external',
                 'methodname'    => 'handle_glossary',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
                 'classpath'   => 'local/wstemplate/ws/glossario.php',
                 'type'          => 'read',
         ),
-        'local_wstemplate_handle_lesson' => array(
-                'classname'     => 'local_wstemplate_external',
+        'atid_tools_handle_lesson' => array(
+                'classname'     => 'atid_tools_external',
                 'methodname'    => 'handle_lesson',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
                 'classpath'   => 'local/wstemplate/ws/lesson.php',
                 'type'          => 'read',
         ),
-        'local_wstemplate_get_quizzes' => array(
-                'classname'     => 'local_wstemplate_external',
+        'atid_tools_get_quizzes' => array(
+                'classname'     => 'atid_tools_external',
                 'methodname'    => 'get_quizzes',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
                 'classpath'   => 'local/wstemplate/ws/quiz.php',
                 'type'          => 'read',
         ),
-        'local_wstemplate_handle_survey' => array(
-                'classname'     => 'local_wstemplate_external',
+        'atid_tools_handle_survey' => array(
+                'classname'     => 'atid_tools_external',
                 'methodname'    => 'handle_survey',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
                 'classpath'   => 'local/wstemplate/ws/survey.php',

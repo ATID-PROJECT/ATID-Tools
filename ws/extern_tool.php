@@ -1,26 +1,7 @@
 
 <?php
 
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * External Web Service Template
- *
- * @package    localwstemplate
- * @copyright  2011 Moodle Pty Ltd (http://moodle.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 require_once($CFG->libdir . "/externallib.php");
 
 
@@ -28,7 +9,7 @@ require_once($CFG->dirroot.'/course/lib.php');
 require_once($CFG->dirroot . "/mod/lti/lib.php");
 
 
-class local_wstemplate_handle_lti extends external_api {
+class atid_tools_handle_lti extends external_api {
 
     public static function handle_lti_parameters() {
         return new external_function_parameters(
@@ -113,12 +94,12 @@ class local_wstemplate_handle_lti extends external_api {
         $lti->typeid = $typeid;
         $lti->launchcontainer = $launchcontainer;
 
-        $lti->toolurl = local_wstemplate_handle_lti::get_string_value($toolurl);
-        $lti->securetoolurl = local_wstemplate_handle_lti::get_string_value($securetoolurl);
+        $lti->toolurl = atid_tools_handle_lti::get_string_value($toolurl);
+        $lti->securetoolurl = atid_tools_handle_lti::get_string_value($securetoolurl);
 
-        $lti->resourcekey = local_wstemplate_handle_lti::get_string_value($resourcekey);
-        $lti->password = local_wstemplate_handle_lti::get_string_value($password);
-        $lti->instructorcustomparameters = local_wstemplate_handle_lti::get_string_value($instructorcustomparameters);
+        $lti->resourcekey = atid_tools_handle_lti::get_string_value($resourcekey);
+        $lti->password = atid_tools_handle_lti::get_string_value($password);
+        $lti->instructorcustomparameters = atid_tools_handle_lti::get_string_value($instructorcustomparameters);
 
         $lti->coursemodule = $cm->id;
 
