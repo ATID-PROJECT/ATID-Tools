@@ -23,6 +23,13 @@
 
 // We defined the web service functions to install.
 $functions = array(
+        'get_quiz_questions' => array(
+                'classname'     => 'quiz_questions',
+                'methodname'    => 'handle_quiz_questions',
+                'description' => 'Get details about quiz questions',
+                'classpath'   => 'local/wstemplate/ws/quiz/get_questions.php',
+                'type'          => 'read',
+        ),
         'get_grades_status' => array(
                 'classname'     => 'get_grades_status_external',
                 'methodname'    => 'get_grades_status',
@@ -107,7 +114,21 @@ $functions = array(
                 'classpath'   => 'local/wstemplate/ws/get/chat.php',
                 'type'          => 'read',
         ),
-        'get_data' => array(
+        'get_glossary' => array(
+                'classname'     => 'get_glossary',
+                'methodname'    => 'handle_glossary',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/get/get_glossary.php',
+                'type'          => 'read',
+        ),
+        'get_choice' => array(
+                'classname'     => 'get_choice',
+                'methodname'    => 'handle_choice',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/get/choice.php',
+                'type'          => 'read',
+        ),
+        'get_database' => array(
                 'classname'     => 'get_data',
                 'methodname'    => 'handle_data',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
@@ -135,6 +156,13 @@ $functions = array(
                 'classpath'   => 'local/wstemplate/ws/get/quiz.php',
                 'type'          => 'read',
         ),
+        'get_lesson' => array(
+                'classname'     => 'get_lesson',
+                'methodname'    => 'handle_lesson',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/get/lesson.php',
+                'type'          => 'read',
+        ),
         'get_wiki' => array(
                 'classname'     => 'get_wiki',
                 'methodname'    => 'handle_wiki',
@@ -142,12 +170,18 @@ $functions = array(
                 'classpath'   => 'local/wstemplate/ws/get/wiki.php',
                 'type'          => 'read',
         ),
-
         'create_chat' => array(
                 'classname'     => 'atid_tools_external',
                 'methodname'    => 'handle_chat',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
                 'classpath'   => 'local/wstemplate/ws/chat.php',
+                'type'          => 'read',
+        ),
+        'create_lesson' => array(
+                'classname'     => 'create_lesson',
+                'methodname'    => 'handle_lesson',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/lesson.php',
                 'type'          => 'read',
         ),
         'update_chat' => array(
@@ -157,7 +191,7 @@ $functions = array(
                 'classpath'   => 'local/wstemplate/ws/update_chat.php',
                 'type'          => 'read',
         ),
-        'create_data' => array(
+        'create_database' => array(
                 'classname'     => 'database_wstemplate_external',
                 'methodname'    => 'handle_data',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
@@ -185,14 +219,21 @@ $functions = array(
                 'classpath'   => 'local/wstemplate/ws/update_forum.php',
                 'type'          => 'read',
         ),
-        'atid_tools_handle_lti' => array(
+        'update_lesson' => array(
+                'classname'     => 'update_lesson',
+                'methodname'    => 'handle_lesson',
+                'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
+                'classpath'   => 'local/wstemplate/ws/update/update_lesson.php',
+                'type'          => 'read',
+        ),
+        'create_lti' => array(
                 'classname'     => 'atid_tools_handle_lti',
                 'methodname'    => 'handle_lti',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
                 'classpath'   => 'local/wstemplate/ws/extern_tool.php',
                 'type'          => 'read',
         ),
-        'update_extern_tool' => array(
+        'update_lti' => array(
                 'classname'     => 'update_extern_tool',
                 'methodname'    => 'handle_lti',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
@@ -206,7 +247,7 @@ $functions = array(
                 'classpath'   => 'local/wstemplate/ws/glossario.php',
                 'type'          => 'read',
         ),
-        'update_glossario' => array(
+        'update_glossary' => array(
                 'classname'     => 'update_glossario',
                 'methodname'    => 'handle_glossary',
                 'description' => 'Return Hello World FIRSTNAME. Can change the text (Hello World) sending a new text as parameter',
@@ -290,8 +331,48 @@ $functions = array(
                 'description' => 'Delete chat activity by id parameter.',
                 'type'        => 'read',
         ),
-
-
+        'delete_lesson' => array(
+                'classname'   => 'delete_lesson_manager',
+                'methodname'  => 'delete_lesson',
+                'classpath'   => 'local/wstemplate/ws/delete/delete_lesson_manager.php',
+                'description' => 'Delete lesson activity by id parameter.',
+                'type'        => 'read',
+        ),
+        'delete_lti' => array(
+                'classname'   => 'delete_lti_manager',
+                'methodname'  => 'delete_lti',
+                'classpath'   => 'local/wstemplate/ws/delete/delete_lti_manager.php',
+                'description' => 'Delete lti activity by id parameter.',
+                'type'        => 'read',
+        ),
+        'delete_database' => array(
+                'classname'   => 'delete_database_manager',
+                'methodname'  => 'delete_database',
+                'classpath'   => 'local/wstemplate/ws/delete/delete_database_manager.php',
+                'description' => 'Delete database activity by id parameter.',
+                'type'        => 'read',
+        ),
+        'delete_choice' => array(
+                'classname'   => 'delete_choice_manager',
+                'methodname'  => 'delete_choice',
+                'classpath'   => 'local/wstemplate/ws/delete/delete_choice_manager.php',
+                'description' => 'Delete choice activity by id parameter.',
+                'type'        => 'read',
+        ),
+        'delete_wiki' => array(
+                'classname'   => 'delete_wiki_manager',
+                'methodname'  => 'delete_wiki',
+                'classpath'   => 'local/wstemplate/ws/delete/delete_wiki_manager.php',
+                'description' => 'Delete wiki activity by id parameter.',
+                'type'        => 'read',
+        ),
+        'delete_glossary' => array(
+                'classname'   => 'delete_glossary_manager',
+                'methodname'  => 'delete_glossary',
+                'classpath'   => 'local/wstemplate/ws/delete/delete_glossary_manager.php',
+                'description' => 'Delete glossary activity by id parameter.',
+                'type'        => 'read',
+        ),
 );
 
 // We define the services to install as pre-build services. A pre-build service is not editable by administrator.

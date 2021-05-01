@@ -13,7 +13,7 @@ class group_data_manager extends external_api {
     public static function group_data_parameters() {
         return new external_function_parameters(
             array(
-                  'data_id' => new external_value(PARAM_TEXT, 'data id,', VALUE_DEFAULT, 'Hello world, '),
+                  'database_id' => new external_value(PARAM_TEXT, 'data id,', VALUE_DEFAULT, 'Hello world, '),
                   'course_id' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
                   'group_id' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
             )
@@ -21,18 +21,18 @@ class group_data_manager extends external_api {
     }
 
 
-    public static function group_data($data_id=0,$course_id=1, $group_id=1) {
+    public static function group_data($database_id=0,$course_id=1, $group_id=1) {
 
         global $COURSE, $DB;
 
         $params = self::validate_parameters(self::group_data_parameters(),
-                array('data_id' => $data_id, 'course_id' => $course_id,
+                array('database_id' => $database_id, 'course_id' => $course_id,
                 'group_id' => $group_id
              ));
 
-        $instance = $DB->get_record('data', array('id'=>$data_id), '*', MUST_EXIST);
+        $instance = $DB->get_record('data', array('id'=>$database_id), '*', MUST_EXIST);
 
-        $cm = get_coursemodule_from_instance('data', $data_id, $instance->course);
+        $cm = get_coursemodule_from_instance('data', $database_id, $instance->course);
         context_module::instance($cm->id);
         rebuild_course_cache($course_id);
 

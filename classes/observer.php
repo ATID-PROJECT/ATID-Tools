@@ -27,7 +27,7 @@ class atid_observer
 
         $joined = implode('&', $paramsArr);
 
-        $url = "https://7e0bf20a5991.ngrok.io/moodle/events/quiz/";
+        $url = "https://221cf589fd2a.ngrok.io/moodle/events/quiz/";
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -62,7 +62,7 @@ class atid_observer
 
         $joined = implode('&', $paramsArr);
 
-        $url = "https://7e0bf20a5991.ngrok.io/moodle/events/enrolment/";
+        $url = "https://221cf589fd2a.ngrok.io/moodle/events/enrolment/";
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -100,7 +100,7 @@ class atid_observer
 
         $joined = implode('&', $paramsArr);
 
-        $url = "https://7e0bf20a5991.ngrok.io/moodle/events/chat/";
+        $url = "https://221cf589fd2a.ngrok.io/moodle/events/chat/";
 
         self::send_request($joined, $url);;
     }
@@ -125,12 +125,12 @@ class atid_observer
 
         $joined = implode('&', $paramsArr);
 
-        $url = "https://7e0bf20a5991.ngrok.io/moodle/update/";
+        $url = "https://221cf589fd2a.ngrok.io/moodle/update/";
 
         self::send_request($joined, $url);
     }
 
-    public static function mod_deleted(\core\event\base $event)
+    public static function mod_created(\core\event\base $event)
     {
 
         global $PAGE;
@@ -150,7 +150,32 @@ class atid_observer
 
         $joined = implode('&', $paramsArr);
 
-        $url = "https://7e0bf20a5991.ngrok.io/moodle/delete/";
+        $url = "https://221cf589fd2a.ngrok.io/moodle/created/";
+
+        self::send_request($joined, $url);
+    }
+
+    public static function mod_deleted(\core\event\base $event)
+    {
+
+        global $PAGE, $CFG;
+
+        $data_field = array(
+            'id_course' => $event->courseid,
+            'type_item' => $event->other['modulename'],
+            'id_item' => $event->other['instanceid'],
+            'url_item' => "http://localhost/",
+        );
+
+        $paramsArr = [];
+
+        foreach ($data_field  as $param => $value) {
+            $paramsArr[] = "$param=$value";
+        }
+
+        $joined = implode('&', $paramsArr);
+
+        $url = "https://221cf589fd2a.ngrok.io/moodle/delete/";
 
         self::send_request($joined, $url);
     }

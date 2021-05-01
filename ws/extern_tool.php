@@ -17,7 +17,7 @@ class atid_tools_handle_lti extends external_api {
                   'description' => new external_value(PARAM_TEXT, 'lti description,', VALUE_DEFAULT, 'Hello world, '),
                   'course_id' => new external_value(PARAM_INT, 'lti id ,', VALUE_DEFAULT, 0),
                  
-                  'typeid' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
+                  /*'typeid' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
                   'toolurl' => new external_value(PARAM_TEXT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
                   'securetoolurl' => new external_value(PARAM_TEXT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
 
@@ -29,8 +29,8 @@ class atid_tools_handle_lti extends external_api {
                   'resourcekey' => new external_value(PARAM_TEXT, 'lti name,', VALUE_DEFAULT, 'Hello world, '),
                   'password' => new external_value(PARAM_TEXT, 'lti name,', VALUE_DEFAULT, 'Hello world, '),
                   'instructorcustomparameters' => new external_value(PARAM_TEXT, 'lti name,', VALUE_DEFAULT, 'Hello world, '),
-
-                  'group_id' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
+                    */
+                  'group_id' => new external_value(PARAM_INT, 'group id ,', VALUE_DEFAULT, -1),
                   )
         );
     }
@@ -44,22 +44,11 @@ class atid_tools_handle_lti extends external_api {
     }
 
 
-    public static function handle_lti($name = '',$description='',$course_id=1,
-        $typeid='', $toolurl='', $securetoolurl='',$launchcontainer=0,$resourcekey=0,
-        $showdescription=0, $showtitlelaunch=0,$showdescriptionlaunch=0,
-        $password='',$instructorcustomparameters='', $group_id=1
+    public static function handle_lti($name = '',$description='',$course_id=1, $group_id=1
         ) {
 
         global $COURSE, $DB;
             
-        $params = self::validate_parameters(self::handle_lti_parameters(),
-            array(
-                 'name' => $name, 'description' => $description, 'course_id' => $course_id,
-                'showdescription' => $showdescription, 'showtitlelaunch' => $showtitlelaunch, 'showdescriptionlaunch' => $showdescriptionlaunch,
-            'typeid'=>$typeid,'toolurl'=>$toolurl,'securetoolurl'=>$securetoolurl,'launchcontainer'=>$launchcontainer,
-            'resourcekey'=>$resourcekey, 'password'=>$password, 'instructorcustomparameters'=>$instructorcustomparameters,
-            'group_id' => $group_id
-        ));
 
         $course_id = $course_id;
         $section= 6;
@@ -84,10 +73,10 @@ class atid_tools_handle_lti extends external_api {
         $lti->course = $course_id;
 
         $lti->module = $cm->module;
-        $lti->name = $course_name;
+        $lti->name = $name;
         $lti->intro = $description;
 
-        $lti->showdescription = $showdescription;
+        /*$lti->showdescription = $showdescription;
         $lti->showtitlelaunch = $showtitlelaunch;
         $lti->showdescriptionlaunch = $showdescriptionlaunch;
 
@@ -100,7 +89,7 @@ class atid_tools_handle_lti extends external_api {
         $lti->resourcekey = atid_tools_handle_lti::get_string_value($resourcekey);
         $lti->password = atid_tools_handle_lti::get_string_value($password);
         $lti->instructorcustomparameters = atid_tools_handle_lti::get_string_value($instructorcustomparameters);
-
+        */
         $lti->coursemodule = $cm->id;
 
         $instance = lti_add_instance( $lti, null );
@@ -128,7 +117,6 @@ class atid_tools_handle_lti extends external_api {
 
         $result = array();
         $result['id'] = $instance->id;
-        $result['hasgrade'] = false;
         return $result;
     
     }
@@ -143,12 +131,8 @@ class atid_tools_handle_lti extends external_api {
         return new external_single_structure(
             array(
                 'id' => new external_value(PARAM_INT, 'Whether the user can do the quiz or not.'),
-                'hasgrade' => new external_value(PARAM_BOOL, 'Whether the user can do the quiz or not.'),
-                
             )
         );
-
-        return new external_value(PARAM_TEXT, 'The welcome message + user first name');
     }
 
 }

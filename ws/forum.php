@@ -1,14 +1,10 @@
 <?php
 
-
 require_once($CFG->libdir . "/externallib.php");
-
 
 require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->dirroot . "/mod/forum/lib.php");
-
 require_once($CFG->libdir . '/filelib.php');
-require_once($CFG->libdir . '/eventslib.php');
 require_once($CFG->libdir . '/completionlib.php');
 require_once($CFG->dirroot . '/user/selector/lib.php');
 

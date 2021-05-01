@@ -29,8 +29,8 @@ class get_wiki extends external_api {
 
         $result = array();
         $result['id'] = $instance->id;
-        $result['name'] = $instance->name;
-        $result['description'] = $instance->intro;
+        $result['name'] = strip_tags($instance->name);
+        $result['description'] = strip_tags($instance->intro);
 
         $result['wikimode'] = $instance->wikimode;
         $result['firstpagetitle'] = $instance->firstpagetitle;

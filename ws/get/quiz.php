@@ -35,8 +35,8 @@ class get_quiz extends external_api {
 
         $result = array();
         $result['id'] = $instance->id;
-        $result['name'] = $instance->name;
-        $result['description'] = $instance->intro;
+        $result['name'] = strip_tags($instance->name);
+        $result['description'] = strip_tags($instance->intro);
         $result['time_limit'] = $instance->timelimit;
         $result['new_page'] = $instance->questionsperpage;
         $result['shuffleanswers'] = $instance->shuffleanswers;

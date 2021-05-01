@@ -1,4 +1,4 @@
-name: Create ATID Archive
+name: Release
 on:  
   push:
     tags:

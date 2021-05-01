@@ -28,8 +28,8 @@ class get_forum extends external_api {
 
         $result = array();
         $result['id'] = $instance->id;
-        $result['name'] = $instance->name;
-        $result['description'] = $instance->intro;
+        $result['name'] = strip_tags($instance->name);
+        $result['description'] = strip_tags($instance->intro);
 
         $result['type'] = $instance->type;
         $result['maxbytes'] = $instance->maxbytes;

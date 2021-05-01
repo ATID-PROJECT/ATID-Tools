@@ -16,19 +16,6 @@ class update_extern_tool extends external_api {
             array('name' => new external_value(PARAM_TEXT, 'lti name,', VALUE_DEFAULT, 'Hello world, '),
                   'description' => new external_value(PARAM_TEXT, 'lti description,', VALUE_DEFAULT, 'Hello world, '),
                   'lti_id' => new external_value(PARAM_INT, 'lti id ,', VALUE_DEFAULT, 'Hello world, '),
-                 
-                  'typeid' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
-                  'toolurl' => new external_value(PARAM_TEXT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
-                  'securetoolurl' => new external_value(PARAM_TEXT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
-
-                  'showdescription' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 0),
-                  'showtitlelaunch' => new external_value(PARAM_TEXT, 'course id ,', VALUE_DEFAULT, 0),
-                  'showdescriptionlaunch' => new external_value(PARAM_TEXT, 'course id ,', VALUE_DEFAULT, 0),
-
-                  'launchcontainer' => new external_value(PARAM_TEXT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
-                  'resourcekey' => new external_value(PARAM_TEXT, 'lti name,', VALUE_DEFAULT, 'Hello world, '),
-                  'password' => new external_value(PARAM_TEXT, 'lti name,', VALUE_DEFAULT, 'Hello world, '),
-                  'instructorcustomparameters' => new external_value(PARAM_TEXT, 'lti name,', VALUE_DEFAULT, 'Hello world, '),
                   )
         );
     }
@@ -41,21 +28,12 @@ class update_extern_tool extends external_api {
         }
     }
 
-    public static function handle_lti($name = '',$description='',$lti_id=1,
-        $typeid='', $toolurl='', $securetoolurl='',$launchcontainer=0,$resourcekey=0,
-        $showdescription=0, $showtitlelaunch=0,$showdescriptionlaunch=0,
-        $password='',$instructorcustomparameters=''
+    public static function handle_lti($name = '',$description='',$lti_id=1
         ) {
 
         global $COURSE, $DB;
 
-        $params = self::validate_parameters(self::handle_lti_parameters(),
-                array(
-                    'name' => $name, 'description' => $description, 'lti_id' => $lti_id,
-                    'showdescription' => $showdescription, 'showtitlelaunch' => $showtitlelaunch, 'showdescriptionlaunch' => $showdescriptionlaunch,
-                'typeid'=>$typeid,'toolurl'=>$toolurl,'securetoolurl'=>$securetoolurl,'launchcontainer'=>$launchcontainer,
-                'resourcekey'=>$resourcekey, 'password'=>$password, 'instructorcustomparameters'=>$instructorcustomparameters,
-             ));
+       
 
         $lti = new stdClass();
         $lti->modulename = 'lti';
@@ -63,20 +41,6 @@ class update_extern_tool extends external_api {
 
         $lti->name = $name;
         $lti->intro = $description;
-
-        $lti->showdescription = $showdescription;
-        $lti->showtitlelaunch = $showtitlelaunch;
-        $lti->showdescriptionlaunch = $showdescriptionlaunch;
-
-        $lti->typeid = $typeid;
-        $lti->launchcontainer = $launchcontainer;
-
-        $lti->toolurl = update_extern_tool::get_string_value($toolurl);
-        $lti->securetoolurl = update_extern_tool::get_string_value($securetoolurl);
-
-        $lti->resourcekey = update_extern_tool::get_string_value($resourcekey);
-        $lti->password = update_extern_tool::get_string_value($password);
-        $lti->instructorcustomparameters = update_extern_tool::get_string_value($instructorcustomparameters);
 
         $DB->update_record('lti', $lti);
         

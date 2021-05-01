@@ -18,25 +18,25 @@ class get_data extends external_api {
     public static function handle_data_parameters() {
         return new external_function_parameters(
             array(
-                  'data_id' => new external_value(PARAM_INT, 'data description,', VALUE_DEFAULT, 'Hello world, '),
+                  'database_id' => new external_value(PARAM_INT, 'data description,', VALUE_DEFAULT, 'Hello world, '),
                   'course_id' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
             )
         );
     }
 
-    public static function handle_data($data_id='',$course_id=1) {
+    public static function handle_data($database_id='',$course_id=1) {
 
         global $COURSE, $DB;
 
         $params = self::validate_parameters(self::handle_data_parameters(),
-                array('data_id' => $data_id, 'course_id' => $course_id ));
+                array('database_id' => $database_id, 'course_id' => $course_id ));
 
-        $instance = $DB->get_record('data', array('id'=>$data_id), '*', MUST_EXIST);
+        $instance = $DB->get_record('data', array('id'=>$database_id), '*', MUST_EXIST);
 
         $result = array();
         $result['id'] = $instance->id;
-        $result['name'] = $instance->name;
-        $result['description'] = $instance->intro;
+        $result['name'] = strip_tags($instance->name);
+        $result['description'] = strip_tags($instance->intro);
         
         $result['approval'] = $instance->approval;
         $result['manageapproved'] = $instance->manageapproved;

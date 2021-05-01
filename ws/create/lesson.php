@@ -17,9 +17,7 @@ class create_lesson extends external_api {
                   'description' => new external_value(PARAM_TEXT, 'lesson description,', VALUE_DEFAULT, 'Hello world, '),
                   'course_id' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
                   'group_id' => new external_value(PARAM_INT, 'course id ,', VALUE_DEFAULT, 'Hello world, '),
-                  )
-
-                  
+            )
         );
     }
 
@@ -30,7 +28,7 @@ class create_lesson extends external_api {
 
         $params = self::validate_parameters(self::handle_lesson_parameters(),
                 array('name' => $name, 'description' => $description, 'course_id' => $course_id,
-                'group_id'=>$group_id
+                'group_id' => $group_id
              ));
 
         $course_id = $course_id;
@@ -52,8 +50,6 @@ class create_lesson extends external_api {
         course_add_cm_to_section( $course_id, $cm->id, $section);
     
 
-        $mform = new stdClass();
-
         $lesson = new stdClass();
         $lesson->modulename = 'lesson';
         $lesson->course = $course_id;
@@ -62,9 +58,9 @@ class create_lesson extends external_api {
         $lesson->name = $course_name;
         $lesson->intro = $description;
 
-
         $lesson->coursemodule = $cm->id;
-        $instance = lesson_add_instance( $lesson, $mform );
+
+        $instance = lesson_add_instance( $lesson );
 
         $DB->set_field('course_modules', 'instance', $instance, array('id'=> $lesson->coursemodule ));
 
@@ -89,7 +85,6 @@ class create_lesson extends external_api {
 
         $result = array();
         $result['id'] = $instance->id;
-        $result['hasgrade'] = false;
         return $result;
     
     }
@@ -103,9 +98,7 @@ class create_lesson extends external_api {
 
         return new external_single_structure(
             array(
-                'id' => new external_value(PARAM_INT, 'Whether the user can do the quiz or not.'),
-                'hasgrade' => new external_value(PARAM_BOOL, 'Whether the user can do the quiz or not.'),
-                
+                'id' => new external_value(PARAM_INT, 'Whether the user can do the quiz or not.'),                
             )
         );
 

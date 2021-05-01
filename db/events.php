@@ -33,14 +33,24 @@ $observers = array(
         'callback' => 'atid_observer::mod_updated',
     ),
     array(
-        'eventname' => '\core\event\module_updated',
+        'eventname' => '\core\event\course_module_created',
         'includefile' => '/local/wstemplate/classes/observer.php',
-        'callback' => 'atid_observer::mod_updated',
+        'callback' => 'atid_observer::mod_created',
     ),
     array(
-        'eventname' => '\core\event\course_content_deleted',
+        'eventname' => '\core\event\course_module_deleted',
         'includefile' => '/local/wstemplate/classes/observer.php',
         'callback' => 'atid_observer::mod_deleted',
+    ),
+    array(
+        'eventname' => 'tool_recyclebin\event\course_bin_item_create',
+        'includefile' => '/local/wstemplate/classes/observer.php',
+        'callback' => 'atid_observer::mod_deleted',
+    ),
+    array(
+        'eventname' => 'tool_recyclebin\event\course_bin_item_restored',
+        'includefile' => '/local/wstemplate/classes/observer.php',
+        'callback' => 'atid_observer::mod_created',
     ),
     array(
         'eventname' => '\core\event\course_deleted',

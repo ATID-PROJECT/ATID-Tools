@@ -60,14 +60,16 @@ class atid_tools_external extends external_api {
 
         $chat->coursemodule = $cm->id;
 
-        $instance = chat_add_instance( $chat );
+        $instance = chat_add_instance( $chat );        
 
         $DB->set_field('course_modules', 'instance', $instance, array('id'=> $chat->coursemodule ));
+
+        
 
         $instance = $DB->get_record('chat', array('id'=>$instance), '*', MUST_EXIST);
         $cm = get_coursemodule_from_id('chat',  $chat->coursemodule, $instance->course, true, MUST_EXIST);
         context_module::instance($cm->id);
-        rebuild_course_cache($course->id);
+        rebuild_course_cache($course->id, true);
         /*add_to_log($course_id, "course", "add mod",
         "../../mod/$cm->modulename/view.php?id=$cm->id",
         "$cm->modulename $cm->instance");
