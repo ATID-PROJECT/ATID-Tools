@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-      with:
-        fetch-depth: 0
     - name: ATID Release
       uses: thedoctor0/zip-release@master
       with:
@@ -20,5 +18,6 @@ jobs:
     - name: Upload Release
       uses: ncipollo/release-action@v1
       with:
+        fetch-depth: 0
         artifacts: "release.zip"
         token: ${{ secrets.GITHUB_TOKEN }}
