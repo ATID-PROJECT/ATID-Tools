@@ -32,6 +32,7 @@ class get_quiz extends external_api {
                 array('quiz_id' => $quiz_id, 'course_id' => $course_id ));
 
         $instance = $DB->get_record('quiz', array('id'=>$quiz_id), '*', MUST_EXIST);
+        $module = $DB->get_record('course_modules', array('instance' => $instance->id, 'course' => $course_id), '*', MUST_EXIST);
 
         $result = array();
         $result['id'] = $instance->id;
@@ -43,6 +44,8 @@ class get_quiz extends external_api {
 
         $result['timeopen'] = self::getStringDate($instance->timeopen);
         $result['timeclose'] = self::getStringDate($instance->timeclose);
+
+        $result['cmid'] = $module->id;
 
         return $result;
     }
@@ -65,10 +68,9 @@ class get_quiz extends external_api {
                 'timeopen' => new external_value(PARAM_TEXT, 'Whether the user can do the quiz or not.'),
                 'timeclose' => new external_value(PARAM_TEXT, 'Whether the user can do the quiz or not.'),
                 
+                'cmid' => new external_value(PARAM_INT, 'Module id.'),
             )
         );
-
-        return new external_value(PARAM_TEXT, 'The welcome message + user first name');
     }
 
 }

@@ -26,11 +26,13 @@ class get_lesson extends external_api {
                 array('lesson_id' => $lesson_id, 'course_id' => $course_id ));
 
         $instance = $DB->get_record('lesson', array('id'=>$lesson_id), '*', MUST_EXIST);
+        $module = $DB->get_record('course_modules', array('instance' => $instance->id, 'course' => $course_id), '*', MUST_EXIST);
 
         $result = array();
         $result['id'] = $instance->id;
         $result['name'] = strip_tags($instance->name);
         $result['description'] = strip_tags($instance->intro);
+        $result['cmid'] = $module->id;
      
         return $result;
     
@@ -47,7 +49,7 @@ class get_lesson extends external_api {
                 'id' => new external_value(PARAM_INT, 'Whether the user can do the quiz or not.'),
                 'name' => new external_value(PARAM_TEXT, 'Whether the user can do the quiz or not.'),
                 'description' => new external_value(PARAM_TEXT, 'Whether the user can do the quiz or not.'),
-
+                'cmid' => new external_value(PARAM_INT, 'Module id.'),
             )
         );
 

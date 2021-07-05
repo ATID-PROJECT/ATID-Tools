@@ -26,6 +26,7 @@ class get_glossary extends external_api {
                 array('glossary_id' => $glossary_id, 'course_id' => $course_id ));
 
         $instance = $DB->get_record('glossary', array('id'=>$glossary_id), '*', MUST_EXIST);
+        $module = $DB->get_record('course_modules', array('instance' => $instance->id, 'course' => $course_id), '*', MUST_EXIST);
 
         $result = array();
         $result['id'] = $instance->id;
@@ -45,6 +46,8 @@ class get_glossary extends external_api {
         $result['showall'] = $instance->showall;
         $result['showspecial'] = $instance->showspecial;
         $result['allowprintview'] = $instance->allowprintview;
+
+        $result['cmid'] = $module->id;
      
         return $result;
     
@@ -76,10 +79,9 @@ class get_glossary extends external_api {
                 'showspecial' => new external_value(PARAM_BOOL, 'Whether the user can do the quiz or not.'),
                 'allowprintview' => new external_value(PARAM_BOOL, 'Whether the user can do the quiz or not.'),
                 
+                'cmid' => new external_value(PARAM_INT, 'Module id.'),
             )
         );
-
-        return new external_value(PARAM_TEXT, 'The welcome message + user first name');
     }
 
 }

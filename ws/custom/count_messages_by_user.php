@@ -47,6 +47,5 @@ class count_messages_by_user extends external_api
             )
         );
 
-        return new external_value(PARAM_TEXT, 'Number of chat messages by user');
     }
 }

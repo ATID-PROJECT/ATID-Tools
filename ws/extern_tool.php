@@ -117,6 +117,7 @@ class atid_tools_handle_lti extends external_api {
 
         $result = array();
         $result['id'] = $instance->id;
+        $result['cmid'] = $cm->id;
         return $result;
     
     }
@@ -131,6 +132,7 @@ class atid_tools_handle_lti extends external_api {
         return new external_single_structure(
             array(
                 'id' => new external_value(PARAM_INT, 'Whether the user can do the quiz or not.'),
+                'cmid' => new external_value(PARAM_INT, 'Module id.'),
             )
         );
     }

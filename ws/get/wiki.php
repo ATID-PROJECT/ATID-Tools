@@ -26,6 +26,7 @@ class get_wiki extends external_api {
                 array('wiki_id' => $wiki_id, 'course_id' => $course_id ));
 
         $instance = $DB->get_record('wiki', array('id'=>$wiki_id), '*', MUST_EXIST);
+        $module = $DB->get_record('course_modules', array('instance' => $instance->id, 'course' => $course_id), '*', MUST_EXIST);
 
         $result = array();
         $result['id'] = $instance->id;
@@ -35,6 +36,8 @@ class get_wiki extends external_api {
         $result['wikimode'] = $instance->wikimode;
         $result['firstpagetitle'] = $instance->firstpagetitle;
         $result['defaultformat'] = $instance->defaultformat;
+
+        $result['cmid'] = $module->id;
      
         return $result;
     
@@ -55,11 +58,11 @@ class get_wiki extends external_api {
                 'wikimode' => new external_value(PARAM_TEXT, 'Whether the user can do the quiz or not.'),
                 'firstpagetitle' => new external_value(PARAM_TEXT, 'Whether the user can do the quiz or not.'),
                 'defaultformat' => new external_value(PARAM_TEXT, 'Whether the user can do the quiz or not.'),
-                
+
+                'cmid' => new external_value(PARAM_INT, 'Module id.'),
             )
         );
 
-        return new external_value(PARAM_TEXT, 'The welcome message + user first name');
     }
 
 }

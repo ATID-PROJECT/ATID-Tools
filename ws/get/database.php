@@ -32,6 +32,7 @@ class get_data extends external_api {
                 array('database_id' => $database_id, 'course_id' => $course_id ));
 
         $instance = $DB->get_record('data', array('id'=>$database_id), '*', MUST_EXIST);
+        $module = $DB->get_record('course_modules', array('instance' => $instance->id, 'course' => $course_id), '*', MUST_EXIST);
 
         $result = array();
         $result['id'] = $instance->id;
@@ -48,6 +49,8 @@ class get_data extends external_api {
         $result['timeavailableto'] = self::getStringDate( $instance->timeavailableto );
         $result['timeviewfrom'] = self::getStringDate( $instance->timeviewfrom );
         $result['timeviewto'] = self::getStringDate( $instance->timeviewto );
+
+        $result['cmid'] = $module->id;
      
         return $result;
     
@@ -75,11 +78,11 @@ class get_data extends external_api {
                 'timeavailableto' => new external_value(PARAM_TEXT, 'Whether the user can do the quiz or not.'),
                 'timeviewfrom' => new external_value(PARAM_TEXT, 'Whether the user can do the quiz or not.'),
                 'timeviewto' => new external_value(PARAM_TEXT, 'Whether the user can do the quiz or not.'),
-                
+
+                'cmid' => new external_value(PARAM_INT, 'Module id.'),
             )
         );
 
-        return new external_value(PARAM_TEXT, 'The welcome message + user first name');
     }
 
 }

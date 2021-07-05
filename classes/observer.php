@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 require_once($CFG->dirroot . '/config.php');
 require_once($CFG->libdir . "/externallib.php");
@@ -27,7 +27,7 @@ class atid_observer
 
         $joined = implode('&', $paramsArr);
 
-        $url = "https://221cf589fd2a.ngrok.io/moodle/events/quiz/";
+        $url = "https://9833e0d42643.ngrok.io/moodle/events/quiz/";
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -62,7 +62,7 @@ class atid_observer
 
         $joined = implode('&', $paramsArr);
 
-        $url = "https://221cf589fd2a.ngrok.io/moodle/events/enrolment/";
+        $url = "https://9833e0d42643.ngrok.io/moodle/events/enrolment/";
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -100,7 +100,7 @@ class atid_observer
 
         $joined = implode('&', $paramsArr);
 
-        $url = "https://221cf589fd2a.ngrok.io/moodle/events/chat/";
+        $url = "https://9833e0d42643.ngrok.io/moodle/events/chat/";
 
         self::send_request($joined, $url);;
     }
@@ -125,7 +125,7 @@ class atid_observer
 
         $joined = implode('&', $paramsArr);
 
-        $url = "https://221cf589fd2a.ngrok.io/moodle/update/";
+        $url = "https://9833e0d42643.ngrok.io/moodle/update/";
 
         self::send_request($joined, $url);
     }
@@ -150,7 +150,7 @@ class atid_observer
 
         $joined = implode('&', $paramsArr);
 
-        $url = "https://221cf589fd2a.ngrok.io/moodle/created/";
+        $url = "https://9833e0d42643.ngrok.io/moodle/created/";
 
         self::send_request($joined, $url);
     }
@@ -175,7 +175,7 @@ class atid_observer
 
         $joined = implode('&', $paramsArr);
 
-        $url = "https://221cf589fd2a.ngrok.io/moodle/delete/";
+        $url = "https://9833e0d42643.ngrok.io/moodle/delete/";
 
         self::send_request($joined, $url);
     }

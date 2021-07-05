@@ -25,6 +25,7 @@ class get_forum extends external_api {
                 array('forum_id' => $forum_id, 'course_id' => $course_id ));
 
         $instance = $DB->get_record('forum', array('id'=>$forum_id), '*', MUST_EXIST);
+        $module = $DB->get_record('course_modules', array('instance' => $instance->id, 'course' => $course_id), '*', MUST_EXIST);
 
         $result = array();
         $result['id'] = $instance->id;
@@ -37,6 +38,8 @@ class get_forum extends external_api {
         $result['displaywordcount'] = $instance->displaywordcount;
         $result['forcesubscribe'] = $instance->forcesubscribe;
         $result['trackingtype'] = $instance->trackingtype;
+
+        $result['cmid'] = $module->id;
      
         return $result;
     
@@ -61,10 +64,10 @@ class get_forum extends external_api {
                 'forcesubscribe' => new external_value(PARAM_BOOL, 'Whether the user can do the quiz or not.'),
                 'trackingtype' => new external_value(PARAM_BOOL, 'Whether the user can do the quiz or not.'),
                 
+                'cmid' => new external_value(PARAM_INT, 'Module id.'),
             )
         );
 
-        return new external_value(PARAM_TEXT, 'The welcome message + user first name');
     }
 
 }

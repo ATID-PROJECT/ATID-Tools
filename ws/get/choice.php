@@ -26,6 +26,7 @@ class get_choice extends external_api {
                 array('choice_id' => $choice_id, 'course_id' => $course_id ));
 
         $instance = $DB->get_record('choice', array('id'=>$choice_id), '*', MUST_EXIST);
+        $module = $DB->get_record('course_modules', array('instance' => $instance->id, 'course' => $course_id), '*', MUST_EXIST);
 
         $choice->id = $instance->id;
         $choice->name = $name;
@@ -44,6 +45,7 @@ class get_choice extends external_api {
         $result['allowupdate'] = $instance->allowupdate;
         $result['allowmultiple'] = $instance->allowmultiple;
         $result['limitanswers'] = $instance->limitanswers;
+        $result['cmid'] = $module->id;
     
         return $result;
     
@@ -63,11 +65,9 @@ class get_choice extends external_api {
                 'allowupdate' => new external_value(PARAM_BOOL, 'Whether the user can do the quiz or not.'),
                 'allowmultiple' => new external_value(PARAM_BOOL, 'Whether the user can do the quiz or not.'),
                 'limitanswers' => new external_value(PARAM_INT, 'Whether the user can do the quiz or not.'),
-                
+                'cmid' => new external_value(PARAM_INT, 'Module id.'),
             )
         );
-
-        return new external_value(PARAM_TEXT, 'The welcome message + user first name');
     }
 
 }

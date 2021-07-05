@@ -1,5 +1,5 @@
 <?php
-$plugin->version  = 2011101584;
+$plugin->version  = 2011101617;
 $plugin->requires = 2010112402;
 $plugin->component = 'local_wstemplate';
 $plugin->cron     = 0;

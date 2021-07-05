@@ -23,11 +23,39 @@
 
 // We defined the web service functions to install.
 $functions = array(
+        'get_course_grade_items' => array(
+                'classname'     => 'get_course_grade_items_external',
+                'methodname'    => 'handle_get_grade_items',
+                'description' => 'Update module availability',
+                'classpath'   => 'local/wstemplate/ws/get/get_grade_items.php',
+                'type'          => 'read',
+        ),
+        'update_module_availability' => array(
+                'classname'     => 'update_module_availability_external',
+                'methodname'    => 'handle_update_module_availability',
+                'description' => 'Update module availability',
+                'classpath'   => 'local/wstemplate/ws/update/update_module_availability.php',
+                'type'          => 'read',
+        ),
+        'get_course_module' => array(
+                'classname'     => 'get_course_module_external',
+                'methodname'    => 'handle_get_course_module',
+                'description' => 'Get course module details',
+                'classpath'   => 'local/wstemplate/ws/get/get_course_module.php',
+                'type'          => 'read',
+        ),
         'get_quiz_questions' => array(
                 'classname'     => 'quiz_questions',
                 'methodname'    => 'handle_quiz_questions',
                 'description' => 'Get details about quiz questions',
                 'classpath'   => 'local/wstemplate/ws/quiz/get_questions.php',
+                'type'          => 'read',
+        ),
+        'count_log_events' => array(
+                'classname'     => 'count_log_events_external',
+                'methodname'    => 'count_log_events',
+                'description' => 'Count number of events by course;',
+                'classpath'   => 'local/wstemplate/ws/custom/count_log_events.php',
                 'type'          => 'read',
         ),
         'get_grades_status' => array(
@@ -371,6 +399,13 @@ $functions = array(
                 'methodname'  => 'delete_glossary',
                 'classpath'   => 'local/wstemplate/ws/delete/delete_glossary_manager.php',
                 'description' => 'Delete glossary activity by id parameter.',
+                'type'        => 'read',
+        ),
+        'get_modules_from_course' => array(
+                'classname'   => 'get_modules_from_course',
+                'methodname'  => 'handle_course_module',
+                'classpath'   => 'local/wstemplate/ws/get/get_modules_from_course.php',
+                'description' => 'get course sections from course id.',
                 'type'        => 'read',
         ),
 );
